@@ -1,34 +1,31 @@
-import React, { useLayoutEffect, useReducer } from 'react';
-import { useTranslation } from 'react-i18next';
-import { ScrollView } from 'react-native';
-import { connect } from 'react-redux';
+import React from 'react';
 import Container from '../../../components/layout/Container';
-import useRootNavigation from '../../../utils/useRootNavigation';
-import HelpReducer, { initialState } from './Help.reducer';
-import styles from './Help.style';
+import SessionUtils from '../../../session/SessionUtils';
+import WebView from 'react-native-webview';
+import { ActivityIndicator } from 'react-native';
 
 const HelpScreen = ({}) => {
-  const { t } = useTranslation();
-  const [state, dispatch] = useReducer(HelpReducer, initialState);
-  const navigation = useRootNavigation();
-  useLayoutEffect(() => {
-    return () => {};
-  }, []);
+  const { pathHelpLink } = SessionUtils.config();
   return (
-    <Container isFail={true} failMsg={'Tính năng đang được phát triển.'}>
-      <ScrollView
-        style={[styles.flexContainer]}
-        contentContainerStyle={styles.contentContainer}
+    <Container scrollEnabled={false}>
+      <WebView
+        originWhitelist={['*']}
+        source={{
+          uri: pathHelpLink,
+        }}
+        containerStyle={{
+          flex: 1,
+        }}
+        scalesPageToFit={true}
+        javaScriptEnabled={true}
+        allowUniversalAccessFromFileURLs={true}
+        useWebKit={true}
+        thirdPartyCookiesEnabled={true}
+        allowsInlineMediaPlayback={true}
+        allowsLinkPreview={true}
       />
     </Container>
   );
 };
 
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(HelpScreen);
+export default HelpScreen;

@@ -16,11 +16,12 @@ import Actions from './AccountInfoUpdate.actions';
 import Controller from './AccountInfoUpdate.controller';
 import AccountInfoUpdateScreenReducer from './AccountInfoUpdate.reducer';
 import styles from './AccountInfoUpdate.style';
+import moment from 'moment';
 
 enableScreens();
-
+const DOB_FORMAT = 'DD/MM/YYYY';
 const AccountInfoUpdateScreen = props => {
-  const [state, dispacth] = React.useReducer(
+  const [state, dispatch] = React.useReducer(
     AccountInfoUpdateScreenReducer.reducer,
     AccountInfoUpdateScreenReducer.initState,
   );
@@ -31,8 +32,9 @@ const AccountInfoUpdateScreen = props => {
   ];
   const { userInfo, userId } = props;
   const [name, setName] = useState(userInfo.name);
-  const [dob, setDoB] = useState(addFormatDate(userInfo.dob));
-  // const [phone, setPhone] = useState(props.phone);
+  const [dob, setDoB] = useState(moment(userInfo.dob).format(DOB_FORMAT));
+  const [phone, setPhone] = useState(userInfo.phone);
+  const [email, setEmail] = useState(userInfo.email);
   const [sex, setSex] = useState(userInfo.sex);
   const [error, setError] = useState({});
 
@@ -41,29 +43,33 @@ const AccountInfoUpdateScreen = props => {
     if (name.trim().length === 0) {
       e.name = t('AccountInfoUpdateScreen.error.name');
     }
-    if (dob.trim().length < 8) {
+    if (dob.trim().length < 8 || !moment(dob, DOB_FORMAT, true).isValid()) {
       e.dob = t('AccountInfoUpdateScreen.error.dob');
     }
+    // todo check email
+    // todo check phone
     if (Object.keys(e).length === 0) {
-      dispacth({ type: Actions.GetData_request });
+      dispatch({ type: Actions.GetData_request });
       Controller.updateInfo(
         userId,
         {
           name,
-          dob: getDateTime(dob).getTime(),
+          dob: moment(dob, DOB_FORMAT).valueOf(),
           sex,
+          phone,
+          email,
         },
         () => {
-          dispacth({ type: Actions.GetData_success });
+          dispatch({ type: Actions.GetData_success });
         },
         () => {
-          dispacth({ type: Actions.GetData_fail });
+          dispatch({ type: Actions.GetData_fail });
         },
       );
     } else {
       setError(e);
     }
-  }, [dob, name, sex, t, userId]);
+  }, [dob, email, name, phone, sex, t, userId]);
   return (
     <Container isRequesting={state.isRequesting}>
       <View style={[styles.flexContainer]}>
@@ -94,10 +100,10 @@ const AccountInfoUpdateScreen = props => {
                             setName(_name);
                           }}
                           size={Layout.window.width - 64}
-                          isValid={error.name}
+                          isError={error.name}
                         />
                       </Row>
-                      {error.name && (
+                      {!!error.name && (
                         <Row>
                           <Text
                             style={[BaseFontStyles.caption, styles.errorMsg]}>
@@ -125,17 +131,17 @@ const AccountInfoUpdateScreen = props => {
                               maxLength={10}
                               value={dob}
                               onChange={(formatted, extracted) => {
-                                setError({});
                                 setDoB(formatted);
+                                console.log('update dob', extracted);
                               }}
                               keyboardType={'numeric'}
                               mask={'[00]/[00]/[0000]'}
-                              size={85}
-                              isValid={error.dob}
+                              size={90}
+                              isError={error.dob}
                               placeholder={'dd/mm/yyyy'}
                             />
                           </Row>
-                          {error.dob && (
+                          {!!error.dob && (
                             <Row>
                               <Text
                                 style={[
@@ -173,7 +179,7 @@ const AccountInfoUpdateScreen = props => {
                       </Row>
                     </Col>
                   </Row>
-                  {/* <Row style={[styles.row]}>
+                  <Row style={[styles.row]}>
                     <Col>
                       <Row>
                         <Text
@@ -189,8 +195,42 @@ const AccountInfoUpdateScreen = props => {
                           size={90}
                         />
                       </Row>
+                      {!!error.phone && (
+                        <Row>
+                          <Text
+                            style={[BaseFontStyles.caption, styles.errorMsg]}>
+                            {error.phone}
+                          </Text>
+                        </Row>
+                      )}
                     </Col>
-                  </Row> */}
+                  </Row>
+                  <Row style={[styles.row]}>
+                    <Col>
+                      <Row>
+                        <Text
+                          style={[BaseFontStyles.caption, BaseStyles.label]}>
+                          {t('AccountInfoScreen.email')}
+                        </Text>
+                      </Row>
+                      <Row>
+                        <XTextBox2
+                          maxLength={20}
+                          value={email}
+                          onChange={setEmail}
+                          size={Layout.window.width - 64}
+                        />
+                      </Row>
+                      {!!error.email && (
+                        <Row>
+                          <Text
+                            style={[BaseFontStyles.caption, styles.errorMsg]}>
+                            {error.email}
+                          </Text>
+                        </Row>
+                      )}
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
             </Grid>
@@ -207,20 +247,6 @@ const AccountInfoUpdateScreen = props => {
       </View>
     </Container>
   );
-};
-
-const addFormatDate = timeStamp => {
-  const date = new Date(timeStamp);
-  const addZeroIfNeed = number => (number > 9 ? number : `0${number}`);
-  return `${addZeroIfNeed(date.getDate())}/${addZeroIfNeed(
-    date.getMonth() + 1,
-  )}/${date.getFullYear()}`;
-};
-
-const getDateTime = dob => {
-  const parts = dob.split('/');
-  console.log('getDateTimed', dob, parts);
-  return new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0]));
 };
 
 const mapStateToProps = state => ({

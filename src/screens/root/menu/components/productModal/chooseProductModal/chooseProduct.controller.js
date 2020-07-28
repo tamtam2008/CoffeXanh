@@ -6,7 +6,6 @@ export default {
     dispatch({ type: Actions.GET_DATA });
     ProductService.getProductDetail(id).subscribe(
       data => {
-        console.log('ChooseProductModal', data.response);
         if (data.response.status === 200) {
           dispatch({
             type: Actions.GET_DATA_SUCCESS,

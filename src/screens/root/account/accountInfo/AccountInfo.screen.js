@@ -5,19 +5,18 @@ import { Col, Grid, Row } from 'react-native-easy-grid';
 import { ScrollView } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 import LazyImage from '../../../../components/LazyImage';
-import PointIcon from '../../../../components/PointIcon';
 import CustomIcon from '../../../../components/CustomIcon';
 import XIconButton from '../../../../components/XIconButton';
 import { BaseFontStyles, BaseStyles } from '../../../../constants/BaseStyles';
-import Colors from '../../../../constants/Colors';
 import { FontAwesomeType, IconType } from '../../../../constants/Icon';
 import { normalize } from '../../../../constants/Layout';
 import styles from './AccountInfo.style';
+import moment from 'moment';
 
 // enableScreens();
 
 const AccountInfoScreen = props => {
-  const { avatar, userInfo, phone } = props;
+  const { avatar, userInfo } = props;
   const { t } = useTranslation();
   return (
     <ScrollView style={[styles.flexContainer]}>
@@ -69,14 +68,8 @@ const AccountInfoScreen = props => {
               </Row>
               <Row style={[styles.row]}>
                 <Text style={[BaseFontStyles.body1]}>
-                  {t(userInfo.rank ? `rank.${userInfo.rank}` : 'rank.NC')}
+                  {t(userInfo.role ? `role.${userInfo.role}` : 'role.staff')}
                 </Text>
-              </Row>
-              <Row style={[BaseStyles.flexRow, styles.pointContainer]}>
-                <Text style={[BaseFontStyles.body1, styles.pointText]}>
-                  {`${userInfo.point} `}
-                </Text>
-                <PointIcon size={16} focused />
               </Row>
             </Col>
           </Row>
@@ -104,6 +97,9 @@ const AccountInfoScreen = props => {
                       props.navigation.navigate('accountInfoUpdate')
                     }
                     style={styles.editButton}
+                    iconStyle={{
+                      padding: 5,
+                    }}
                   />
                 </Col>
               </Row>
@@ -131,7 +127,7 @@ const AccountInfoScreen = props => {
                       </Row>
                       <Row>
                         <Text style={[BaseFontStyles.body1]}>
-                          {addFormatDate(userInfo.dob)}
+                          {moment(userInfo.dob).format('DD/MM/YYYY')}
                         </Text>
                       </Row>
                     </Col>
@@ -154,41 +150,24 @@ const AccountInfoScreen = props => {
                     </Text>
                   </Row>
                   <Row>
-                    <Text style={[BaseFontStyles.body1]}>{phone}</Text>
+                    <Text style={[BaseFontStyles.body1]}>
+                      {userInfo.phone || t('AccountInfoScreen.empty')}
+                    </Text>
                   </Row>
                 </Col>
               </Row>
               <Row style={[styles.row]}>
                 <Col>
-                  <Row style={styles.facebookContainer}>
+                  <Row>
                     <Text style={[BaseFontStyles.caption, BaseStyles.label]}>
-                      {t('AccountInfoScreen.link')}
+                      {t('AccountInfoScreen.email')}
                     </Text>
-                    <CustomIcon
-                      name="facebook"
-                      size={19}
-                      custom={{
-                        color: Colors.facebook,
-                        style: BaseStyles.ml_10,
-                      }}
-                      focused
-                    />
                   </Row>
-                </Col>
-                <Col>
-                  <Text
-                    onPress={!userInfo.linkedFb ? linkWithFbAction : null}
-                    style={[
-                      BaseFontStyles.body1,
-                      BaseStyles.alignTextRight,
-                      !userInfo.linkedFb ? { color: Colors.tintColor } : null,
-                    ]}>
-                    {t(
-                      userInfo.linkedFb
-                        ? 'AccountInfoScreen.linked'
-                        : 'AccountInfoScreen.notLinked',
-                    )}
-                  </Text>
+                  <Row>
+                    <Text style={[BaseFontStyles.body1]}>
+                      {userInfo.email || t('AccountInfoScreen.empty')}
+                    </Text>
+                  </Row>
                 </Col>
               </Row>
             </Col>
@@ -199,24 +178,11 @@ const AccountInfoScreen = props => {
   );
 };
 
-const addFormatDate = timeStamp => {
-  const date = new Date(timeStamp);
-  const addZeroIfNeed = number => (number > 9 ? number : `0${number}`);
-  return `${addZeroIfNeed(date.getDate())}/${addZeroIfNeed(
-    date.getMonth() + 1,
-  )}/${date.getFullYear()}`;
-};
-
 const changeAvatarAction = () => {
   alert('change avatar!');
 };
-const linkWithFbAction = () => {
-  alert('link fb');
-};
-
 const mapStateToProps = state => ({
   userInfo: state.auth.userInfo,
-  phone: state.auth.phone,
   avatar: { url: state.auth.userInfo.avatar },
 });
 

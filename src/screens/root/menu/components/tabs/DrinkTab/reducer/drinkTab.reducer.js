@@ -4,7 +4,7 @@ import ProductUtils from '../../../../util/ProductUtils';
 const initState = {
   isRequesting: true,
   isFail: false,
-  // items: { category: [], products: [], pathPhoto: '' },
+  items: { category: [], products: [], pathPhoto: '' },
   failMsg: '',
   productData: [],
 };
@@ -26,11 +26,11 @@ export default {
           isRequesting: false,
           isFail: false,
           failMsg: '',
-          // items: {
-          //   products: payload.products || [],
-          //   category: payload.category || [],
-          //   pathPhoto: payload.pathPhoto || '',
-          // },
+          items: {
+            products: payload.products || [],
+            category: payload.category || [],
+            pathPhoto: payload.pathPhoto || '',
+          },
           productData: ProductUtils.mapProductToListViewData(payload),
         };
       case drinkTabAction.GET_DATA_FAIL:
@@ -39,7 +39,13 @@ export default {
           isRequesting: false,
           isFail: true,
           failMsg: payload,
+          items: { category: [], products: [], pathPhoto: '' },
           productData: [],
+        };
+      case drinkTabAction.UPDATE_FAVORITE_LIST:
+        return {
+          ...state,
+          productData: ProductUtils.mapProductToListViewData(state.items),
         };
       default:
         return state;

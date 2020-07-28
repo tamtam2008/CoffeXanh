@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CustomIcon from '../../../../components/CustomIcon';
 import { BaseStyles } from '../../../../constants/BaseStyles';
 import Colors from '../../../../constants/Colors';
@@ -14,10 +14,9 @@ const SettingItem = ({
   onPress = () => {},
 }) => {
   return (
-    <TouchableHighlight
+    <TouchableOpacity
       style={[BaseStyles.baseContainer, styles.mBottom, ...style]}
-      activeOpacity={0.5}
-      underlayColor="#fcfcfc"
+      activeOpacity={0.8}
       onPress={onPress}>
       <View style={styles.item}>
         <CustomIcon
@@ -30,7 +29,7 @@ const SettingItem = ({
         />
         <Text style={[styles.titleItem, ...titleStyle]}>{title}</Text>
       </View>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 };
 

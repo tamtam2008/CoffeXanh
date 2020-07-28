@@ -1,11 +1,19 @@
 import React from 'react';
-import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import {
+  Image,
+  ImageBackground,
+  RefreshControl,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { BaseFontStyles } from '../../constants/BaseStyles';
 import Colors from '../../constants/Colors';
 import Layout, { normalize } from '../../constants/Layout';
 import LoadingPopup from '../utils/LoadingPopup';
 import FallBack from '../utils/FallBack';
-import { connect } from 'react-redux';
 import XButton from '../XButton';
 import useRootNavigation from '../../utils/useRootNavigation';
 import { useTranslation } from 'react-i18next';
@@ -16,23 +24,84 @@ const Container = ({
   children,
   isLoading = false,
   isRequesting = false,
-  style,
+  containerStyle,
+  contentStyle,
   isFail = false,
   failMsg = '',
   isAuthRequired = false,
   isLogin,
   authMsg = '',
+  onRefresh,
+  noBackground = false,
+  loadingMsg,
+  scrollEnabled = true,
 }) => {
-  let Child;
+  let content;
   const { t } = useTranslation();
-  const authRequiredComponent = (
+
+  if (!isAuthRequired || (isAuthRequired && isLogin)) {
+    content = isLoading ? (
+      <FallBack />
+    ) : isFail ? (
+      <View style={[styles.content]}>
+        <Image
+          source={require('../../../assets/images/1.png')}
+          style={styles.icon}
+        />
+        <Text style={[BaseFontStyles.body1, styles.failMsg]}>{failMsg}</Text>
+      </View>
+    ) : (
+      children
+    );
+  } else {
+    content = <AuthRequiredContent t={t} authMsg={authMsg} />;
+  }
+  const _contentContainerStyle = [
+    styles.baseContent,
+    ...(contentStyle instanceof Array ? contentStyle : [contentStyle]),
+  ];
+  const wrapper = scrollEnabled ? (
+    <ScrollView
+      {...(onRefresh
+        ? {
+            refreshControl: (
+              <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
+            ),
+          }
+        : {})}
+      contentContainerStyle={_contentContainerStyle}>
+      {content}
+    </ScrollView>
+  ) : (
+    <View style={_contentContainerStyle}>{content}</View>
+  );
+  return (
+    <SafeAreaView
+      style={[styles.container, StyleSheet.flatten(containerStyle)]}>
+      <ImageBackground
+        {...(noBackground
+          ? {}
+          : {
+              source: require('../../../assets/images/background.png'),
+              imageStyle: styles.image,
+            })}
+        style={[styles.container, noBackground ? {} : styles.backgroundColor]}>
+        {wrapper}
+        <LoadingPopup msg={loadingMsg} visible={isRequesting} />
+      </ImageBackground>
+    </SafeAreaView>
+  );
+};
+
+const AuthRequiredContent = ({ authMsg, t }) => {
+  return (
     <View style={[styles.content]}>
       <Image
         source={require('../../../assets/images/1.png')}
         style={styles.icon}
       />
       <Text style={[BaseFontStyles.body1, styles.failMsg]}>
-        {authMsg || t('common.Container.AuthRequiredMsgDefalt')}
+        {authMsg || t('common.Container.AuthRequiredMsgDefault')}
       </Text>
       <XButton
         title={t('common.Container.loginRequired')}
@@ -43,65 +112,31 @@ const Container = ({
       />
     </View>
   );
-  const mainComponent = !isFail ? (
-    isLoading ? (
-      <FallBack />
-    ) : (
-      children
-    )
-  ) : (
-    <View style={[styles.content]}>
-      <Image
-        source={require('../../../assets/images/1.png')}
-        style={styles.icon}
-      />
-      <Text style={[BaseFontStyles.body1, styles.failMsg]}>{failMsg}</Text>
-    </View>
-  );
-  if (isAuthRequired) {
-    if (isLogin) {
-      Child = mainComponent;
-    } else {
-      Child = authRequiredComponent;
-    }
-  } else {
-    Child = mainComponent;
-  }
-  return (
-    <View style={[styles.container]}>
-      <ImageBackground
-        source={require('../../../assets/images/background.png')}
-        style={[styles.container, style]}
-        imageStyle={styles.image}>
-        {Child}
-      </ImageBackground>
-      {isRequesting && <LoadingPopup />}
-    </View>
-  );
 };
 
-const mapStateToProps = state => ({
-  isLogin: state.auth.isLogin,
-});
-
-export default connect(
-  mapStateToProps,
-  null,
-)(Container);
+export default Container;
 
 const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+  },
   container: {
     flex: 1,
+  },
+  backgroundColor: {
     backgroundColor: Colors.backgroundColor,
   },
   content: {
-    // justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
   },
+  baseContent: {
+    minWidth: '100%',
+    minHeight: '100%',
+  },
   image: {
     resizeMode: 'contain',
-    right: normalize(-14),
+    right: 0,
     bottom: 0,
     left: 'auto',
     top: 'auto',

@@ -3,17 +3,18 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <Firebase.h>
+#import <GoogleMaps/GoogleMaps.h>
+// iOS 9.x or newer
+#import <React/RCTLinkingManager.h>
 
-#if DEBUG
+#ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
 #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
 #import <FlipperKitUserDefaultsPlugin/FKUserDefaultsPlugin.h>
 #import <FlipperKitNetworkPlugin/FlipperKitNetworkPlugin.h>
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
-#import <GoogleMaps/GoogleMaps.h>
-// iOS 9.x or newer
-#import <React/RCTLinkingManager.h>
 
 static void InitializeFlipper(UIApplication *application) {
   FlipperClient *client = [FlipperClient sharedClient];
@@ -30,11 +31,14 @@ static void InitializeFlipper(UIApplication *application) {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#if DEBUG
+#ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);
 #endif
   
-  [GMSServices provideAPIKey:@"AIzaSyBEW1N0ASgmEQSCnWYNhpX3gyXAyhhmVb4"]; // add this line using the api key obtained from Google Console
+  if ([FIRApp defaultApp] == nil) {
+      [FIRApp configure];
+  }
+  [GMSServices provideAPIKey:@"AIzaSyCBjXP2Zk73YPSpZBzP1W5iIo5OibySurM"]; // add this line using the api key obtained from Google Consoleb
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge

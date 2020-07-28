@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Keyboard, StyleSheet, TextInput } from 'react-native';
-import TextInputMask from 'react-native-text-input-mask';
 import Colors from '../constants/Colors';
+import { TextInputMask } from 'react-native-masked-text';
 
 const XTextBox2 = ({
   value,
@@ -12,12 +12,16 @@ const XTextBox2 = ({
   onChange = () => {},
   onSubmit = () => {},
   onFocus = () => {},
-  isValid = false,
+  isError = false,
   disabled = false,
   textAlign = 'left',
   autoFocus = false,
   style = {},
   mask = '',
+  maskType = 'custom',
+  options,
+  ref,
+  secureTextEntry = false,
 }) => {
   const [focus, setFocus] = useState(autoFocus);
   useEffect(() => {
@@ -36,36 +40,54 @@ const XTextBox2 = ({
     <TextInputMask
       style={[
         styles.input,
-        !isValid ? (focus ? styles.focus : {}) : styles.isValid,
+        isError ? styles.isError : focus ? styles.focus : {},
         size ? { width: size } : {},
-        style,
+        ...(style instanceof Array ? style : [style]),
       ]}
       placeholder={placeholder}
       onChangeText={onChange}
-      onSubmitEditing={onSubmit || (() => {})}
+      onSubmitEditing={onSubmit}
       onEndEditing={() => {
         setFocus(false);
         onFocus(false);
       }}
-      onFocus={e => {
+      onFocus={(e) => {
         setFocus(true);
         onFocus(true);
       }}
       value={value}
       keyboardType={keyboardType}
       maxLength={maxLength}
-      textAlign={textAlign}
+      textAlign={textAlign ? textAlign : 'left'}
       editable={!disabled}
       autoFocus={focus}
-      mask={mask}
+      type={maskType}
+      // mask={mask}
+      options={
+        options
+          ? options
+          : {
+              /**
+               * mask: (String | required | default '')
+               * the mask pattern
+               * 9 - accept digit.
+               * A - accept alpha.
+               * S - accept alphanumeric.
+               * * - accept all, EXCEPT white space.
+               */
+              mask: mask,
+            }
+      }
+      ref={ref}
+      secureTextEntry={secureTextEntry}
     />
   ) : (
     <TextInput
       style={[
         styles.input,
-        !isValid ? (focus ? styles.focus : {}) : styles.isValid,
+        isError ? styles.isError : focus ? styles.focus : {},
         size ? { width: size } : {},
-        style,
+        ...(style instanceof Array ? style : [style]),
       ]}
       placeholder={placeholder}
       onChangeText={onChange}
@@ -74,7 +96,7 @@ const XTextBox2 = ({
         setFocus(false);
         onFocus(false);
       }}
-      onFocus={e => {
+      onFocus={(e) => {
         setFocus(true);
         onFocus(true);
       }}
@@ -84,6 +106,7 @@ const XTextBox2 = ({
       textAlign={textAlign}
       editable={!disabled}
       autoFocus={focus}
+      secureTextEntry={secureTextEntry}
     />
   );
 };
@@ -102,7 +125,7 @@ const styles = StyleSheet.create({
   focus: {
     borderColor: Colors.tintColor,
   },
-  isValid: {
+  isError: {
     borderColor: Colors.red,
   },
 });

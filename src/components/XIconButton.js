@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Colors from '../constants/Colors';
 import { IconType } from '../constants/Icon';
 import CustomIcon from './CustomIcon';
@@ -8,6 +8,7 @@ import { BaseFontStyles, BaseStyles } from '../constants/BaseStyles';
 const XIconButton = ({
   icon = { name: '', type: IconType.FONTAWESOME, size: 24 },
   onPress = () => {},
+  onPressIn = () => {},
   style = {},
   color = Colors.tintColor,
   iconStyle = {},
@@ -16,8 +17,13 @@ const XIconButton = ({
 }) => {
   return (
     <TouchableOpacity
-      style={[BaseStyles.flexRow, styles.container, style]}
-      onPressIn={onPress ? onPress : () => {}}
+      style={[
+        BaseStyles.flexRow,
+        styles.container,
+        ...(style instanceof Array ? style : [style]),
+      ]}
+      onPress={onPress}
+      onPressIn={onPressIn}
       disabled={disabled}>
       <CustomIcon
         name={icon.name}

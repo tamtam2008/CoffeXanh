@@ -1,21 +1,15 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, StyleSheet, View, Text } from 'react-native';
-import { of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import XIconButton from '../../../../../../components/XIconButton';
 import Colors from '../../../../../../constants/Colors';
 import { FontAwesomeType, IconType } from '../../../../../../constants/Icon';
 import {
-  BaseStyles,
   BaseFontStyles,
+  BaseStyles,
 } from '../../../../../../constants/BaseStyles';
 import { useTranslation } from 'react-i18next';
 
-const FavoriteButton = ({
-  isFavorite,
-  haveTitle = false,
-  onPress = () => {},
-}) => {
+const FavoriteButton = ({ isFavorite, haveTitle = false, onPress }) => {
   const [onClick, setOnClick] = useState(false);
   const { t } = useTranslation();
   return !onClick ? (
@@ -27,17 +21,18 @@ const FavoriteButton = ({
           size: isFavorite ? 23.5 : 24,
           other: isFavorite ? FontAwesomeType.SOLID : null,
         }}
+        iconStyle={BaseStyles.textShadow}
         color={isFavorite ? Colors.tintColor : Colors.gray}
-        onPress={() => {
+        onPressIn={() => {
           setOnClick(true);
-          onPress();
-          of({ data: true })
-            .pipe(delay(2000))
-            .subscribe(() => {
-              isFavorite = !isFavorite;
+          if (onPress) {
+            onPress(() => {
+              // setFavorite(_isFavorite);
               setOnClick(false);
-              console.log('ok na');
             });
+          } else {
+            setOnClick(false);
+          }
         }}
         title={haveTitle ? t('Menu.FavoriteButton.favorite') : ''}
       />

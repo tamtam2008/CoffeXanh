@@ -5,16 +5,16 @@ import Colors from '../../constants/Colors';
 import { useTranslation } from 'react-i18next';
 import XModal from '../layout/XModal';
 
-const LoadingPopup = () => {
+const LoadingPopup = ({ msg, visible }) => {
   const { t } = useTranslation();
   return (
-    <XModal visible={true}>
+    <XModal visible={visible}>
       <View style={[BaseStyles.baseContainer, styles.popup]}>
         <ActivityIndicator
           style={styles.loadingIcon}
           color={Colors.tintColor}
         />
-        <Text>{t('LoadingPopup.isLoading')}</Text>
+        <Text>{t(msg || 'LoadingPopup.isLoading')}</Text>
       </View>
     </XModal>
   );

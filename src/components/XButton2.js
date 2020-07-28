@@ -11,19 +11,6 @@ const XButton2 = ({ title, onPress, disabled = false, style, buttonColor }) => {
     },
   });
   return (
-    // <View
-    //   style={[
-    //     BaseStyles.boxWithShadow,
-    //     styles.container,
-    //     disabled
-    //       ? styles.disabed
-    //       : buttonColor
-    //       ? customColor.actived
-    //       : styles.actived,
-    //     customStyle,
-    //   ]}>
-    //   {ButtonComponent}
-    // </View>
     <TouchableHighlight
       style={[
         BaseStyles.boxWithShadow,

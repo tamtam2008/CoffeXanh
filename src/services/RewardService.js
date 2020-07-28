@@ -7,17 +7,31 @@ export default {
   getListCouponByUser: userId => {
     const authHeader = SessionUtils.buildAuthHeader();
     return HttpClient.get(
-      AppConfig.ServerAddress +
-        `/api/xanhcoffee/product/admin/getListCouponByUser?id=${userId}&${ServiceUtils.getLangCodeParam()}`,
+      `${
+        AppConfig.ServerAddress
+      }/api/xanhcoffee/product/admin/getListCouponByUser`,
       authHeader,
+      { id: userId, ...ServiceUtils.getLangCodeParam() },
     );
   },
   getCouponDetail: id => {
     const authHeader = SessionUtils.buildAuthHeader();
     return HttpClient.get(
-      AppConfig.ServerAddress +
-        `/api/xanhcoffee/product/admin/getDetailCoupon/${id}?${ServiceUtils.getLangCodeParam()}`,
+      `${
+        AppConfig.ServerAddress
+      }/api/xanhcoffee/product/admin/getDetailCoupon/${id}`,
       authHeader,
+      { ...ServiceUtils.getLangCodeParam() },
+    );
+  },
+  getYourCouponForCart: userId => {
+    const authHeader = SessionUtils.buildAuthHeader();
+    return HttpClient.get(
+      `${
+        AppConfig.ServerAddress
+      }/api/xanhcoffee/product/admin/getListSummaryCouponByUser/${userId}`,
+      authHeader,
+      { ...ServiceUtils.getLangCodeParam() },
     );
   },
 };

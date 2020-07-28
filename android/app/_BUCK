@@ -35,12 +35,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.xanhcoffee",
+    package = "com.xanhcoffee.adminapp",
 )
 
 android_resource(
     name = "res",
-    package = "com.xanhcoffee",
+    package = "com.xanhcoffee.adminapp",
     res = "src/main/res",
 )
 

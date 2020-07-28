@@ -4,24 +4,21 @@ import { BaseFontStyles, BaseStyles } from '../constants/BaseStyles';
 import Colors from '../constants/Colors';
 
 const XButton = ({ title, onPress, disabled = false, style, buttonColor }) => {
-  const customStyle = { width: '100%', ...style };
-  const customColor = StyleSheet.create({
-    actived: {
-      backgroundColor: buttonColor,
-    },
+  const customStyle = {
+    width: '100%',
+    ...style,
+  };
+  const customColor = StyleSheet.flatten({
+    backgroundColor: buttonColor,
   });
   return (
     <TouchableOpacity
-      activeOpacity={0.6}
+      activeOpacity={0.4}
       // underlayColor="#52ca75"
       style={[
         BaseStyles.boxWithShadow,
         styles.container,
-        disabled
-          ? styles.disabed
-          : buttonColor
-          ? customColor.actived
-          : styles.actived,
+        disabled ? styles.disabled : buttonColor ? customColor : styles.active,
         customStyle,
       ]}
       onPress={onPress ? onPress : () => {}}
@@ -31,7 +28,7 @@ const XButton = ({ title, onPress, disabled = false, style, buttonColor }) => {
           style={[
             BaseFontStyles.menuOrBody2,
             styles.button,
-            disabled ? styles.textDisabled : styles.textActivied,
+            disabled ? styles.textDisabled : styles.textActive,
           ]}>
           {title}
         </Text>
@@ -52,24 +49,23 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingLeft: 16,
-    paddingRight: 16,
+    paddingHorizontal: 16,
     paddingBottom: 1,
     borderRadius: 5,
   },
   button: {
     textAlign: 'center',
   },
-  textActivied: {
+  textActive: {
     color: '#fff',
   },
-  actived: {
+  active: {
     backgroundColor: Colors.tintColor,
   },
   textDisabled: {
     color: '#fff',
   },
-  disabed: {
+  disabled: {
     backgroundColor: Colors.lightGray,
   },
 });

@@ -1,9 +1,14 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { Image } from 'react-native-elements';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { BaseFontStyles, BaseStyles } from '../../../constants/BaseStyles';
 import CustomIcon from '../../../components/CustomIcon';
 import { IconType } from '../../../constants/Icon';
@@ -12,29 +17,21 @@ import i18n from '../../../languages/i18n.config';
 import useRootNavigation from '../../../utils/useRootNavigation';
 import Container from '../../../components/layout/Container';
 import LanguagesConfig from '../../../config/Languages.config';
+import RNRestart from 'react-native-restart';
 
+// const navigation = useRootNavigation();
 export default function ChooseLanguageScreen() {
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
-  const navigation = useRootNavigation();
 
   return (
-    <Container isRequesting={loading} style={BaseStyles.baseContainer}>
+    <Container isRequesting={loading} contentStyle={BaseStyles.baseContent}>
       {LanguagesConfig.map((i, k) =>
         itemRender(i, i18n.language, k, t, l => {
           setLoading(true);
-          AsyncStorage.setItem('languages', l, error => {
-            i18n.changeLanguage(l, e => {
-              if (e) {
-                console.log(
-                  'ChooseLanguageScreen',
-                  'change language error.',
-                  e,
-                );
-              }
-            });
-            setLoading(false);
-            navigation.navigate('settings', { isUpdate: true });
+          AsyncStorage.setItem('language', l, () => {
+            // Immediately reload the React Native Bundle
+            RNRestart.Restart();
           });
         }),
       )}
@@ -45,7 +42,7 @@ export default function ChooseLanguageScreen() {
 const itemRender = (item, code, key, t, onPress) => {
   return (
     <TouchableOpacity
-      onPressIn={() => {
+      onPress={() => {
         onPress(item.code);
       }}
       style={[BaseStyles.baseContainer, BaseStyles.flexRow, styles.item]}

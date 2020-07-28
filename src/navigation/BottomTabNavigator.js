@@ -5,10 +5,11 @@ import { routes } from '../screens/routes';
 import Colors from '../constants/Colors';
 import { normalize } from '../constants/Layout';
 import { useTranslation } from 'react-i18next';
+import { useFocusEffect } from '@react-navigation/core';
+import { backButtonHandler } from '../utils/AppUtils';
 
 const Tab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'home';
-
 export default function BottomTabNavigator({ navigation, route }) {
   const tabBarOptions = {
     style: { height: normalize(60), paddingBottom: 5, paddingTop: 5 },
@@ -16,6 +17,9 @@ export default function BottomTabNavigator({ navigation, route }) {
     inactiveTintColor: Colors.tabIconDefault,
   };
   const { t } = useTranslation();
+
+  useFocusEffect(React.useCallback(backButtonHandler({ route }), [route]));
+
   return (
     <Tab.Navigator
       unmountOnBlur={true}

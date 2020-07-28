@@ -1,12 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import {
   ImageBackground,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 import LazyImage from '../../../../../../../components/LazyImage';
 import CustomIcon from '../../../../../../../components/CustomIcon';
 import XButton from '../../../../../../../components/XButton';
@@ -19,18 +19,20 @@ import {
 import Colors from '../../../../../../../constants/Colors';
 import { FontAwesomeType, IconType } from '../../../../../../../constants/Icon';
 import Layout from '../../../../../../../constants/Layout';
-import { formatCurrency } from '../../../../../../../utils/formatUtils';
-import FavoriteButton from '../../../productList/ProductItem/FavoriteButton';
+import { formatCurrency } from '../../../../../../../utils/AppUtils';
 import RadioChooseOptions from './RadioChooseOptions';
+import { Divider } from 'react-native-elements';
+import { useTranslation } from 'react-i18next';
 
-const emptyFunc = () => {};
+const emptyFunc = () => {
+};
 const renderButton = (name, disabled, onPress) =>
   !disabled ? (
     <View>
       <TouchableOpacity
         style={[BaseStyles.flexRow, styles.button]}
         activeOpacity={0.6}
-        onPressIn={onPress ? onPress : emptyFunc()}>
+        onPressIn={onPress ? onPress : emptyFunc}>
         <CustomIcon
           name={name}
           type={IconType.FONTAWESOME}
@@ -52,57 +54,27 @@ const renderButton = (name, disabled, onPress) =>
     </View>
   );
 
-const ChooseProductContent = props => {
-  const {
-    style,
-    showDetail,
-    decreaseQuantity,
-    increaseQuantity,
-    state,
-    footerAction: { cancelAction, submitAction },
-  } = props;
+const ChooseProductContent = ({
+  style,
+  showDetail,
+  state,
+  footerAction: { cancelAction },
+}) => {
   const { detailProduct, photo, listSize } = state.data;
   const radio_props =
     listSize?.map(size => {
       return {
-        label: size.tenSize,
+        label: size.kyHieu ? `${size.tenSize} (${size.kyHieu})` : size.tenSize,
         label2:
           size.giaban - detailProduct.giaban > 0
             ? formatCurrency(size.giaban - detailProduct.giaban)
             : '',
-        value: size,
       };
     }) || [];
   const image = {
     url: !!photo && photo.length > 0 ? photo[0]?.thumb || '' : '',
   };
-  const [sizeChoosed, setSizeChoosed] = useState(
-    listSize?.length > 0 ? listSize[0] : null,
-  );
-
-  const addProductToCart = useCallback(() => {
-    const { id, tenSp, giaban } = detailProduct;
-    const product = sizeChoosed
-      ? {
-          id: id,
-          name: tenSp,
-          sizeId: sizeChoosed.id,
-          sizeName: sizeChoosed.tenSize,
-          quantity: state.quantity,
-          price: sizeChoosed.giaban,
-          image: image,
-        }
-      : {
-          id: id,
-          name: tenSp,
-          sizeId: null,
-          sizeName: null,
-          quantity: state.quantity,
-          price: giaban,
-          image: image,
-        };
-    submitAction(product);
-  }, [detailProduct, image, sizeChoosed, state.quantity, submitAction]);
+  const { t } = useTranslation();
   return (
     <View style={style}>
       <ScrollView>
@@ -110,14 +82,10 @@ const ChooseProductContent = props => {
           <View style={[BaseStyles.flexRow, styles.marginHorizontal]}>
             <ImageBackground
               source={require('./../../../../../../../../assets/images/1.png')}
-              style={[styles.imageContainer]}
+              style={[styles.imageContainer, BaseStyles.boxWithShadow]}
               imageStyle={styles.imageBG}>
-              {!!image && image.url ? (
-                <LazyImage
-                  url={image.url || ''}
-                  headers={image.headers || {}}
-                  style={styles.imageContainer}
-                />
+              {image ? (
+                <LazyImage url={image || ''} style={styles.imageContainer}/>
               ) : null}
             </ImageBackground>
             <View style={[BaseStyles.flexColumn, styles.container1]}>
@@ -128,7 +96,6 @@ const ChooseProductContent = props => {
                 {formatCurrency(detailProduct?.giaban || 0)}
               </Text>
               <View style={[BaseStyles.flexRow, styles.buttonContainer]}>
-                <FavoriteButton haveTitle={true} />
                 <XIconButton
                   icon={{
                     name: 'info-circle',
@@ -138,7 +105,7 @@ const ChooseProductContent = props => {
                   }}
                   color={Colors.gray}
                   onPress={showDetail}
-                  title={'Chi tiết'}
+                  title={t('Menu.ChooseProductContent.detail')}
                 />
               </View>
             </View>
@@ -150,57 +117,35 @@ const ChooseProductContent = props => {
                 BaseStyles.mt_16,
                 styles.titleContainer,
               ]}>
-              <Text style={[BaseFontStyles.menuOrBody2]}>Kích thước</Text>
-            </View>
-            <View style={[BaseStyles.mt_16, styles.sizeChoosedContainer]}>
-              <RadioChooseOptions
-                data={radio_props}
-                selectedIdx={0}
-                onPress={val => setSizeChoosed(val)}
-              />
-            </View>
-          </View>
-          <View style={[styles.marginHorizontal]}>
-            <View
-              style={[
-                BaseStyles.boxWithShadow,
-                BaseStyles.mt_16,
-                styles.titleContainer,
-              ]}>
-              <Text style={[BaseFontStyles.menuOrBody2]}>Số lượng</Text>
-            </View>
-            <View style={[BaseStyles.flexRow, styles.quantityContainer]}>
-              <View style={[BaseStyles.flexRow]}>
-                {renderButton('minus', state.quantity === 1, decreaseQuantity)}
-                <Text style={[BaseFontStyles.subHeader, styles.quantityText]}>
-                  {state.quantity}
-                </Text>
-                {renderButton('plus', false, increaseQuantity)}
-              </View>
-              <Text style={[BaseFontStyles.subHeader]}>
-                {formatCurrency(
-                  (sizeChoosed?.giaban || detailProduct?.giaban || 0) *
-                    state.quantity,
-                )}
+              <Text style={[BaseFontStyles.menuOrBody2]}>
+                {t('Menu.ChooseProductContent.size')}
               </Text>
             </View>
+            <View style={[BaseStyles.flexColumn, styles.sizeContainer]}>
+              {radio_props.map((val, key) => (
+                <View key={key} style={[BaseStyles.flexRow, styles.label]}>
+                  <Text style={[BaseFontStyles.body1]}>{`- ${val.label}`}</Text>
+                  {!!val.label2 && (
+                    <Text style={[BaseFontStyles.body1]}>
+                      {'+' + val.label2}
+                    </Text>
+                  )}
+                </View>
+              ))}
+            </View>
           </View>
+          <Divider style={{ backgroundColor: Colors.gray }}/>
           <View
             style={[
-              BaseStyles.flexRow,
+              // BaseStyles.flexRow,
               BaseStyles.mt_10,
               styles.footerContainer,
               styles.marginHorizontal,
             ]}>
-            <XButton2
-              title={'Huỷ'}
-              style={styles.footerBtn}
-              onPress={cancelAction}
-            />
             <XButton
-              title={'Thêm vào giỏ'}
-              style={styles.footerBtn}
-              onPress={addProductToCart}
+              title={'Đóng'}
+              // style={styles.footerBtn}
+              onPress={cancelAction}
             />
           </View>
         </View>
@@ -275,5 +220,13 @@ const styles = StyleSheet.create({
   },
   marginHorizontal: {
     paddingHorizontal: 16,
+  },
+  label: {
+    justifyContent: 'space-between',
+    alignSelf: 'center',
+    width: '100%',
+  },
+  sizeContainer: {
+    marginVertical: 10,
   },
 });

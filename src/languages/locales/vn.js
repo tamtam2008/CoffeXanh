@@ -1,26 +1,35 @@
 export default {
   login_screen: {
-    ignoreBtn: 'Bỏ qua',
     loginBtn: 'Đăng nhập',
-    title1: 'Chào bạn,',
-    title2: 'nhập số điện thoại để tiếp tục',
-    otherLoginTypeTitle: 'hoặc đăng nhập bằng',
-    phoneNumber: 'Số điện thoại',
-    error: {
-      phoneNumber: 'Số điện thoại không hợp lệ.',
-    },
-    notify: {
-      otp_success: 'Mã OTP đã được gửi đến số điên thoại của bạn',
-    },
+    message: 'Bạn chưa có tài khoản?',
+    username: 'Tài khoản',
+    password: 'Mật khẩu',
+    error: 'Tài khoản hoặc mật khẩu không đúng.',
+    resetPwdBtn: 'Quên mật khẩu',
+    registerBtn: 'Tạo tài khoản',
   },
-  otp_screen: {
-    screenName: 'Xác thực số điện thoại',
-    title1: 'Nhập mã xác thực gồm 6 số đã được gửi đến số điện thoại ',
-    title2: ' để tiếp tục',
-    getOtpAgain: 'Gửi lại',
-    notify: {
-      smsFail: 'Gửi SMS thất bại. Vui lòng thử lại sau',
-    },
+  RegisterScreen: {
+    title: 'Đăng ký',
+    message: 'Vui lòng nhập thông tin đăng ký',
+    username: 'Họ và tên',
+    password: 'Mật khẩu',
+    phonenumber: 'Số điện thoại',
+    email: 'Email',
+    confirmPassword: 'Xác nhận mật khẩu',
+    successMessage: 'Bạn đã đăng ký thành công',
+    successAlert:
+      'Bán sẽ nhận được email thông báo đã hoàn tât đăng ký khi thông tin của bạn được xác nhận',
+    gotoLogin: 'Về trang đăng nhập',
+  },
+  ResetPasswordScreen: {
+    title: 'Nhập thông tin để khôi phục mật khẩu của bạn',
+    resetPwdBtn: 'Khôi phục mật khẩu',
+    email: 'Email hoặc số điện thoại của bạn',
+  },
+  ResetPasswordSuccessScreen: {
+    title: 'Khôi phục mật khẩu thành công!',
+    title2: 'Vui lòng kiểm tra email để thực hiện khôi phục mật khẩu của bạn.',
+    closeApp: 'Đóng ứng dụng',
   },
   AccountInfoUpdateScreen: {
     name: 'Tên',
@@ -39,12 +48,9 @@ export default {
     female: 'Nữ',
     12: 'Nữ',
   },
-  rank: {
-    NC: 'Khách hàng mới',
-    CP: 'Đồng',
-    SI: 'Bạc',
-    GO: 'Vàng',
-    DI: 'Kim cương',
+  role: {
+    staff: 'Nhân viên',
+    admin: 'Quản lý',
   },
   Home: {
     header: {
@@ -79,10 +85,9 @@ export default {
     name: 'Tên',
     dob: 'Ngày sinh',
     sex: 'Giới tính',
-    phone: ' Số điện thoại',
-    link: 'Liên kết',
-    linked: 'Đã liên kết',
-    notLinked: 'Chưa liên kết',
+    phone: 'Số điện thoại',
+    email: 'Email',
+    empty: 'Chưa có',
   },
   SettingsScreen: {
     addressBook: 'Địa chỉ đã lưu',
@@ -109,10 +114,10 @@ export default {
   },
   routes: {
     bottomTabs: {
-      home: 'Trang chủ',
-      menu: 'Đặt hàng',
+      menu: 'Menu',
       store: 'Cửa hàng',
       account: 'Tài khoản',
+      order: 'Đơn hàng',
     },
     screens: {
       accountInfo: 'Thông tin tài khoản',
@@ -121,6 +126,7 @@ export default {
       paymentType: 'Phương thức thanh toán',
       blogDetail: 'Blog',
       reward: 'Ưu đãi',
+      changeReward: 'Đổi điểm thưởng',
       yourCoupon: 'Ưu đãi của bạn',
       noti: 'Thông báo',
       orderHistory: 'Lịch sử đặt hàng',
@@ -128,8 +134,10 @@ export default {
       addressBook: 'Địa chỉ đã lưu',
       help: 'Điều khoản sử dụng và trợ giúp',
       findAddress: 'Tìm địa chỉ giao hàng',
-      yourCode: 'Mã giao dịch',
+      yourCode: 'Mã khách hàng',
       settings: 'Cài đặt',
+      chooseLanguageScreen: 'Chọn ngôn ngữ',
+      chooseReceiveAddress: 'Giao đến',
     },
   },
   paymentType: {
@@ -140,70 +148,33 @@ export default {
       loginRequired: 'Đăng nhập để tiếp tục',
       AuthRequiredMsgDefalt: 'Bạn cần đăng nhập để sử dụng chức năng này.',
     },
-  },
-  YourCouponScreen: {
-    couponCode: 'Mã khuyến mãi',
-    AuthRequiredMsg: 'Đăng nhập hoặc đăng ký ngay để nhận nhiều ưu đãi',
-    addCouponBtn: 'Thêm',
-    applyTo: 'Áp dụng đến hết ngày',
-    error: {
-      noCoupon: 'Bạn không có ưu đãi nào.',
-    },
-  },
-  YourCouponDetailScreen: {
-    description: 'Mô tả',
-    conditionApply: 'Điều kiện áp dụng',
-    applyAllOrder: 'Áp dụng cho mọi đơn hàng.',
-    excludeProducts: 'Ngoại trừ một số sản phẩm sau: ...',
-    apply: 'Áp dụng',
-    applyTo: 'Áp dụng đến hết ngày',
-    numberUse: 'Số lần sử dụng còn lại',
-  },
-  CartScreen: {
-    orderBtn: 'Đặt hàng',
-    OrderInfo: {
-      title: 'Thông tin đơn hàng',
-      shipTo: 'Giao hàng đến',
-      emptyAddress: 'Chưa chọn địa điểm giao hàng',
-    },
-    OrderItemDetails: {
-      title: 'Chi tiết đơn hàng',
-      provisionalSum: 'Tạm tính',
-      shippingFee: 'Phí giao hàng',
-      promotion: 'Khuyến mãi',
-      total: 'Tổng cộng',
-    },
-    OrderNotes: {
-      title: 'Ghi chú',
-      noteForStore: 'Ghi chú cho cửa hàng',
-      noteForDriver: 'Ghi chú cho tài xế',
-    },
-    OrderPaymentAndCoupon: {
-      title: 'Thanh toán & khuyến mãi',
-      payment: 'Thanh toán',
-      promotion: 'Khuyến mãi',
-      noPromotion: 'Không có',
+    pressContinueToExit: 'Nhấn 1 lần nữa để thoát khỏi ứng dụng',
+    TimeUnit: {
+      min: 'Phút',
+      hour: 'Giờ',
     },
   },
   SettingMenu: {
     accountInfo: 'Thông tin tài khoản',
-    rewards: 'Ưu đãi',
-    orderHistory: 'Lịch sử đơn hàng',
-    payment: 'Thanh toán',
+    rewards: 'Quản lý Ưu đãi',
+    notifyReward: 'Gửi thông báo khuyến mãi',
+    report: 'Thống kê',
+    users: 'Quản lý nhân viên',
     help: 'Điều khoản sử dụng và trợ giúp',
     settings: 'Cài đặt',
     logout: 'Đăng xuất',
-    SettingHeader: {
-      loginBtn: 'Đăng nhập',
-    },
+    createUser: 'Tạo tài khoản mới',
   },
   YourCodeScreen: {
     UserCode: 'Mã khách hàng',
     TransactionCode: 'Mã giao dịch của bạn',
     notes:
-      '*Vì lý do an toàn, bạn nên giữ bảo mật mã BarCode và QRCode để tránh bị người khác sử dụng vì mục đích không tốt.',
+      '*Mã khách hàng được dùng cho mục đích tích điểm, bạn có thể sử dụng mã này khi thanh toán ở toàn bộ các chuỗi cửa hàng của Xanh Coffee.',
   },
   LoadingPopup: {
     isLoading: 'Đang xử lý',
+  },
+  SplashScreen: {
+    name: 'PHẦN MỀM QUẢN LÝ XANH COFFEE',
   },
 };

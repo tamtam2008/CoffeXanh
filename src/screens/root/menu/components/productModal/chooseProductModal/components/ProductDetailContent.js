@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
-import { ImageBackground, StyleSheet, Text, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import {
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import LazyImage from '../../../../../../../components/LazyImage';
 import XButton from '../../../../../../../components/XButton';
 import { BaseFontStyles } from '../../../../../../../constants/BaseStyles';
 import Colors from '../../../../../../../constants/Colors';
 import Layout from '../../../../../../../constants/Layout';
-import { formatCurrency } from '../../../../../../../utils/formatUtils';
+import { formatCurrency } from '../../../../../../../utils/AppUtils';
 
-const ProductDetailContent = props => {
-  const { style, state, closeAction } = props;
+const ProductDetailContent = ({ style, state, closeAction }) => {
   const { detailProduct, photo } = state.data || { photo: [] };
   const entries =
     photo
@@ -44,7 +48,6 @@ const ProductDetailContent = props => {
 
 const _renderItem = ({ item, index }) => {
   const { image } = item;
-  console.log(index, item);
   return (
     <ImageBackground
       source={require('./../../../../../../../../assets/images/1.png')}
@@ -118,7 +121,6 @@ const styles = StyleSheet.create({
     height: Layout.window.width * 0.9 - 32,
     backgroundColor: 'rgba(194,194,194,0.5)',
     borderRadius: 5,
-    marginRight: 10,
   },
   imageBG: {
     width: Layout.window.width * 0.9 - 42,

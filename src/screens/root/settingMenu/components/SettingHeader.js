@@ -3,24 +3,21 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { Image } from 'react-native-svg';
 import { connect } from 'react-redux';
-import PointIcon from '../../../../components/PointIcon';
 import CustomIcon from '../../../../components/CustomIcon';
-import XButton2 from '../../../../components/XButton2';
 import { BaseFontStyles, BaseStyles } from '../../../../constants/BaseStyles';
 import Colors from '../../../../constants/Colors';
 import { FontAwesomeType, IconType } from '../../../../constants/Icon';
-import useRootNavigation from '../../../../utils/useRootNavigation';
+import XIconButton from '../../../../components/XIconButton';
+import { Badge } from 'react-native-elements';
 
-const SettingHeader = ({ userInfo, islogin, phone }) => {
+const SettingHeader = ({ userInfo, phone, isNew }) => {
   const { t } = useTranslation();
-  const navigation = useRootNavigation();
-  console.log('SettingHeader', islogin);
-  return islogin ? (
+  return (
     <View style={styles.container}>
-      <View style={[BaseStyles.flexRow, BaseStyles.alignItems]}>
+      <View style={[BaseStyles.flexRow, BaseStyles.alignItemsCenter]}>
         <View style={[styles.avatarContainer, BaseStyles.boxWithShadow]}>
-          {userInfo.avatar ? (
-            <Image style={styles.avatar} source={{ url: userInfo.avatar }} />
+          {userInfo?.avatar ? (
+            <Image style={styles.avatar} source={{ url: userInfo?.avatar }} />
           ) : (
             <CustomIcon
               type={IconType.FONTAWESOME}
@@ -35,61 +32,44 @@ const SettingHeader = ({ userInfo, islogin, phone }) => {
         <View style={styles.userInfoContainer}>
           <View style={BaseStyles.flexRow}>
             <Text style={[BaseFontStyles.title, BaseStyles.greenColor]}>
-              {userInfo.name || phone}
+              {userInfo?.name || phone}
             </Text>
           </View>
           <Text style={BaseFontStyles.caption}>
-            {t(userInfo.rank ? `rank.${userInfo.rank}` : 'rank.NC')}
+            {t(userInfo?.role ? `role.${userInfo?.role}` : 'role.staff')}
           </Text>
         </View>
       </View>
-      <View style={BaseStyles.flexRow}>
-        <View style={[BaseStyles.flexRow, styles.point]}>
-          <Text style={BaseFontStyles.menuOrBody2}>66</Text>
-          <View style={StyleSheet.create({ marginLeft: 5 })}>
-            <PointIcon size={16} focused={true} />
-          </View>
-        </View>
-      </View>
-    </View>
-  ) : (
-    <View style={styles.container}>
-      <View style={[BaseStyles.flexRow, BaseStyles.alignItems]}>
-        <View style={[BaseStyles.mr_10]}>
-          <CustomIcon
-            type={IconType.FONTAWESOME}
-            size={28}
-            name="user"
-            focused={true}
-            other={FontAwesomeType.SOLID}
-            custom={{ style: BaseStyles.textShadow }}
-          />
-        </View>
-        <XButton2
-          title={t('SettingMenu.SettingHeader.loginBtn')}
-          style={styles.loginBtn}
-          onPress={() => {
-            navigation.navigate('Auth', { screen: 'login' });
+      <View>
+        <XIconButton
+          icon={{
+            name: 'bell',
+            iconType: IconType.FONTAWESOME,
+            size: 24,
+            other: FontAwesomeType.SOLID,
           }}
+          color={isNew > 0 ? Colors.tintColor : Colors.gray}
         />
+        {isNew > 0 && (
+          <Badge
+            value={isNew}
+            status={'error'}
+            containerStyle={styles.notify}
+          />
+        )}
       </View>
     </View>
   );
 };
 
-const mapStateToProps = state => {
-  const { auth } = state;
-  console.log('SettingHeader', auth);
+const mapStateToProps = (state) => {
+  const { auth, notify } = state;
   return {
-    islogin: auth.isLogin,
-    userInfo: auth.userInfo,
-    phone: auth.phone,
+    phone: auth?.phone,
+    isNew: notify?.isNew,
   };
 };
-export default connect(
-  mapStateToProps,
-  null,
-)(SettingHeader);
+export default connect(mapStateToProps, null)(SettingHeader);
 
 const styles = StyleSheet.create({
   container: {
@@ -97,7 +77,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    // zIndex: 1,
     ...BaseStyles.baseContainerWithoutTopBottomPadding,
     paddingTop: 10,
     paddingBottom: 10,

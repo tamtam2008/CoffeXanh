@@ -1,8 +1,8 @@
-import AsyncStorage from '@react-native-community/async-storage';
-import actions from '../../../../redux/app.actions';
 import UserService from '../../../../services/UserService';
-import store from '../../../../redux/store';
 import useRootNavigation from '../../../../utils/useRootNavigation';
+import moment from 'moment';
+import TopNotifyUtils from '../../../../utils/TopNotifyUtils';
+import SessionUtils from '../../../../session/SessionUtils';
 
 const navigation = useRootNavigation();
 
@@ -11,31 +11,30 @@ const Controller = {
     const putData = {
       id: userId,
       ...getName(userInfo.name),
-      birthday: addFormatDateToRequest(userInfo.dob),
+      birthday: moment(userInfo.dob).format('YYYY-MM-DD'),
       gender: userInfo.sex,
+      phone: userInfo.phone,
+      email: userInfo.email,
     };
     console.log('updateInfo - userInfo', userInfo);
     console.log('updateInfo - putData', putData);
-    UserService.updateUserInfo(userId, putData).subscribe(
-      resp => {
-        console.log('updateInfo', resp.response);
-        AsyncStorage.setItem('userInfo', JSON.stringify(userInfo)).then(() => {
-          store.dispatch({
-            type: actions.USER_INFO_UPDATE,
-            payload: userInfo,
-          });
-          navigation.navigate('Root', {
-            screen: 'bottomTabs',
-            params: { screen: 'home' },
-          });
+    UserService.updateUserInfo(userId, putData).subscribe(resp => {
+      const { status } = resp.response;
+      if (status === 200) {
+        SessionUtils.updateUserInfo(userInfo, () => {
           onSuccess();
+          navigation.navigate('accountInfo');
         });
-      },
-      e => {
+      } else {
         console.log('updateInfo', 'Fail!!', putData);
+        TopNotifyUtils.fail(
+          status === 500 || status === 0
+            ? `notify.code.${status}`
+            : 'notify.failMsg',
+        );
         onFail();
-      },
-    );
+      }
+    });
   },
 };
 
@@ -51,11 +50,4 @@ const getName = name => {
   }
 };
 
-const addFormatDateToRequest = timeStamp => {
-  const date = new Date(timeStamp);
-  const addZeroIfNeed = number => (number > 9 ? number : `0${number}`);
-  return `${date.getFullYear()}-${addZeroIfNeed(
-    date.getMonth() + 1,
-  )}-${addZeroIfNeed(date.getDate())}`;
-};
 export default Controller;

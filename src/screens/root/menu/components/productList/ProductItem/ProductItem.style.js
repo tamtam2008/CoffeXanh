@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   name: {
     overflow: 'hidden',
-    width: normalize(166) - 50,
+    width: normalize(166) - 20,
   },
   priceContainer: {
     // marginTop: 5,
@@ -48,11 +48,6 @@ const styles = StyleSheet.create({
   basePrice: {
     textDecorationLine: 'line-through',
     color: Colors.lightGray,
-  },
-  favoriteBtnContainer: {
-    width: 30,
-    height: 25,
-    paddingLeft: 5,
   },
 });
 

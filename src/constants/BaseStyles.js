@@ -48,6 +48,7 @@ export const BaseStyles = StyleSheet.create({
   baseContainerWithoutPadding: {
     ...baseContainerWithoutPadding,
     ...boxWithShadow,
+    borderRadius: 5,
   },
   baseContainerWithoutTopBottomPadding: {
     ...baseContainerWithoutTopBottomPadding,
@@ -68,11 +69,19 @@ export const BaseStyles = StyleSheet.create({
   },
   greenColor: { color: Colors.tintColor },
   baseContent: {
-    flex: 1,
-    backgroundColor: Colors.backgroundColor,
-    color: Colors.gray,
+    // flex: 1,
+    // backgroundColor: Colors.backgroundColor,
+    // color: Colors.gray,
     paddingTop: 24,
     paddingBottom: 24,
+    paddingLeft: 16,
+    paddingRight: 16,
+  },
+  baseContentNoBackground: {
+    flex: 1,
+    color: Colors.gray,
+    paddingTop: 16,
+    paddingBottom: 16,
     paddingLeft: 16,
     paddingRight: 16,
   },
@@ -84,6 +93,18 @@ export const BaseStyles = StyleSheet.create({
   },
   mt_24: {
     marginTop: 24,
+  },
+  mb_10: {
+    marginBottom: 10,
+  },
+  mb_5: {
+    marginBottom: 5,
+  },
+  mb_16: {
+    marginBottom: 16,
+  },
+  mb_24: {
+    marginBottom: 24,
   },
   ml_5: {
     marginLeft: 5,
@@ -112,6 +133,12 @@ export const BaseStyles = StyleSheet.create({
   alignItems: {
     alignItems: 'center',
   },
+  alignSelfCenter: {
+    alignSelf: 'center',
+  },
+  w50percent: {
+    width: '50%',
+  },
   textShadow: {
     textShadowOffset: { width: 1, height: 2 },
     textShadowRadius: 3.84,
@@ -135,36 +162,37 @@ const robotoFontStyle = {
   bold: { fontWeight: '700' }, //bold
 };
 
+const baseFontSize = 14;
 export const BaseFontStyles = StyleSheet.create({
   headline: {
     fontFamily: 'Roboto-Medium',
-    fontSize: 22,
+    fontSize: baseFontSize + 6,
     color: Colors.gray,
   },
   title: {
     fontFamily: 'Roboto-Medium',
-    fontSize: 20,
+    fontSize: baseFontSize + 4,
     color: Colors.gray,
   },
   subHeader: {
     fontFamily: 'Roboto-Regular',
     ...robotoFontStyle.regular,
-    fontSize: 16,
+    fontSize: baseFontSize + 2,
     color: Colors.gray,
   },
   body1: {
     fontFamily: 'Roboto-Regular',
-    fontSize: 14,
+    fontSize: baseFontSize,
     color: Colors.gray,
   },
   menuOrBody2: {
     fontFamily: 'Roboto-Medium',
-    fontSize: 14,
+    fontSize: baseFontSize,
     color: Colors.gray,
   },
   caption: {
     fontFamily: 'Roboto-Regular',
-    fontSize: 12,
+    fontSize: baseFontSize - 2,
     color: Colors.gray,
   },
 });

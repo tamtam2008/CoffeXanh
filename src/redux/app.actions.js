@@ -1,4 +1,4 @@
-export default {
+const AppActions = {
   LOGOUT: 'Auth_Logout',
   LOGOUT_SUCCESS: 'Auth_Logout_Success',
   LOGIN: 'Auth_Login',
@@ -22,6 +22,10 @@ export default {
   CART_UPDATE_PAYMENT: 'Cart/Update_Payment',
   CART_UPDATE_INFO: 'Cart/Update_Info',
   CART_UPDATE_TIME: 'Cart/Update_Time',
+  CART_UPDATE_COUPON: 'Cart/Update_Coupon',
   CART_UPDATE_NOTE: 'Cart/Update_Note',
+  CART_RENEW: 'Cart/Renew',
   USER_INFO_UPDATE: 'UserInfo/update',
 };
+
+export default AppActions;

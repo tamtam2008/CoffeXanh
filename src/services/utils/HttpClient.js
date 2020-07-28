@@ -1,40 +1,83 @@
 import { ajax } from 'rxjs/ajax';
 import { ajaxPost } from 'rxjs/internal/observable/dom/AjaxObservable';
+import { catchError, tap } from 'rxjs/operators';
+import ServiceUtils from './ServiceUtils';
+import useRootNavigation from '../../utils/useRootNavigation';
+import { of } from 'rxjs';
 
-const request = (url, method, body, headers) => {
+const navigation = useRootNavigation();
+const request = (url, method, body, headers, params) => {
   console.log(
-    'httpClient.request',
-    url,
+    'HTTPCLIENT.REQUEST',
     method,
+    url,
     'headers:',
     headers,
     'body:',
-    body,
+    JSON.stringify(body),
+    'params',
+    params,
   );
   return ajax({
     ...{
-      url,
+      url: encodeURI(`${url}${ServiceUtils.buildParams(params)}`),
       method,
       headers,
       body,
     },
-    timeout: 30000,
-  });
+    timeout: 15000,
+  }).pipe(
+    catchError(e => {
+      if (e.status === 401) {
+        navigation.navigate('Auth', { screen: 'login' });
+      }
+      return of({
+        response: {
+          status: e.status,
+          message: e.message,
+          error: e.name,
+          result: 'fail',
+        },
+        fullError: e,
+      });
+    }),
+    tap(data => {
+      console.log(
+        'HTTPCLIENT.RESPONSE',
+        method,
+        url,
+        JSON.stringify(data.response),
+      );
+    }),
+  );
 };
 
 const HttpClient = {
-  get: (url, headers) => request(url, 'GET', null, headers),
-  put: (url, body, headers) =>
-    request(url, 'PUT', body, {
-      'Content-Type': 'application/json',
-      ...headers,
-    }),
-  post: (url, body, headers) =>
-    ajaxPost(url, body, {
-      'Content-Type': 'application/json',
-      ...headers,
-    }),
-  delete: (url, headers) => request(url, 'DELETE', null, headers),
+  get: (url, headers, params) => request(url, 'GET', null, headers, params),
+  put: (url, body, headers, params) =>
+    request(
+      url,
+      'PUT',
+      body,
+      {
+        'Content-Type': 'application/json',
+        ...headers,
+      },
+      params,
+    ),
+  post: (url, body, headers, params) =>
+    request(
+      url,
+      'POST',
+      body,
+      {
+        'Content-Type': 'application/json',
+        ...headers,
+      },
+      params,
+    ),
+  delete: (url, headers, params) =>
+    request(url, 'DELETE', null, headers, params),
 };
 
 export default HttpClient;

@@ -1,8 +1,10 @@
+import { dynamicSort } from '../../../../utils/AppUtils';
+
 export default {
-  mapProductToListViewData: ({ category, products, pathPhoto }) =>
-    category.map(cate => ({
-      items: [
-        {
+  mapProductToListViewData: ({ category, products, pathPhoto }) => {
+    return (
+      category
+        .map(cate => ({
           header: cate.ten || '',
           items: products
             .filter(product => product.idList === cate.id)
@@ -17,8 +19,13 @@ export default {
                 url: `${pathPhoto}/${product.thumb}`,
                 headers: {},
               },
-            })),
-        },
-      ],
-    })),
+            }))
+            .sort(dynamicSort('name', 'asc')),
+        }))
+        .filter(data => data.items.length > 0)
+        .map(data => ({
+          items: [data],
+        })) || []
+    );
+  },
 };

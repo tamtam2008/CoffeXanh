@@ -9,7 +9,6 @@ export default StyleSheet.create({
   },
   productContainer: {
     flex: 1,
-    marginTop: 10,
     justifyContent: 'center',
     backgroundColor: Colors.backgroundColor,
     position: 'relative',

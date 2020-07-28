@@ -1,19 +1,19 @@
-import loadable from '@loadable/component';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
+import MapStoreScreen from './mapStore/MapStore.screen';
 
 const Stack = createStackNavigator();
 
-const AuthScreens = () => {
+const StoreScreens = () => {
   return (
     <Stack.Navigator initialRouteName="store">
       <Stack.Screen
         name="store"
-        component={loadable(() => import('./mapStore/MapStore.screen'))}
+        component={MapStoreScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
 };
 
-export default AuthScreens;
+export default StoreScreens;

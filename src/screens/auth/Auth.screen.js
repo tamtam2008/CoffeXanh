@@ -1,8 +1,10 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import LoginScreen from './login/Login.screen';
-import OTPVerifyScreen from './otpVerify/OTPVerify.screen';
-import PhoneNumberLockedScreen from './phoneNumberLocked/PhoneNumberLocked.screen';
+import RegisterScreen from './register/Register.screen';
+import ResetPasswordScreen from './resetPassword/ResetPassword.screen';
+import ResetPasswordSuccessScreen from './resetPasswordSuccess/ResetPasswordSuccess.screen';
+import RegisterSuccessScreen from './register/RegisterSuccess.screen';
 
 const Stack = createStackNavigator();
 
@@ -14,13 +16,25 @@ const AuthScreen = () => {
         component={LoginScreen}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="OTPVerify" component={OTPVerifyScreen} />
       <Stack.Screen
-        name="phoneLocked"
-        component={PhoneNumberLockedScreen}
-        options={{
-          title: 'Thông báo',
-        }}
+        name="resetPassword"
+        component={ResetPasswordScreen}
+        options={{ title: 'Quên mật khẩu', headerTitleAlign: 'center' }}
+      />
+      <Stack.Screen
+        name="resetPasswordSuccess"
+        component={ResetPasswordSuccessScreen}
+        options={{ title: 'Quên mật khẩu', headerTitleAlign: 'center' }}
+      />
+      <Stack.Screen
+        name="register"
+        component={RegisterScreen}
+        options={{ title: 'Tạo tài khoản', headerTitleAlign: 'center' }}
+      />
+      <Stack.Screen
+        name="registerSuccess"
+        component={RegisterSuccessScreen}
+        options={{ title: 'Đăng ký', headerTitleAlign: 'center' }}
       />
     </Stack.Navigator>
   );

@@ -59,3 +59,5 @@ buck-out/
 
 #VS Code
 .vscode
+
+/android/*.hprof

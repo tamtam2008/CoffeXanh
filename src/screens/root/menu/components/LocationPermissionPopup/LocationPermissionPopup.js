@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useCallback } from 'react';
+import { PermissionsAndroid, StyleSheet, Text, View } from 'react-native';
 import XModal from '../../../../../components/layout/XModal';
 import XButton from '../../../../../components/XButton';
 import XButton2 from '../../../../../components/XButton2';
@@ -7,8 +7,30 @@ import {
   BaseFontStyles,
   BaseStyles,
 } from '../../../../../constants/BaseStyles';
+import Layout from '../../../../../constants/Layout';
+import AsyncStorage from '@react-native-community/async-storage';
+import SessionUtils from '../../../../../session/SessionUtils';
 
-const LocationPermissionPopup = ({ visible, okAction, cancelAction }) => {
+const LocationPermissionPopup = ({ visible, cancelAction }) => {
+  const requestLocationPermission = useCallback(async () => {
+    try {
+      const status = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      );
+      if (status === 'granted') {
+        console.warn('have permission');
+      }
+      AsyncStorage.setItem(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        status,
+      ).then(() => {
+        SessionUtils.setConfig({ locationPermission: status === 'granted' });
+      });
+    } catch (err) {
+      console.log('LocationPermissionPopup', JSON.stringify(err));
+      // console.error('can not approve permission');
+    }
+  }, []);
   return (
     <XModal visible={visible} onClose={cancelAction}>
       <View
@@ -26,11 +48,24 @@ const LocationPermissionPopup = ({ visible, okAction, cancelAction }) => {
             styles.buttonContainer,
           ]}>
           <XButton2
-            onPress={cancelAction}
+            onPress={() => {
+              cancelAction();
+              AsyncStorage.setItem(
+                PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+                'denied',
+              );
+            }}
             style={styles.button}
             title={'Đóng'}
           />
-          <XButton onPress={okAction} style={styles.button} title={'Đồng ý'} />
+          <XButton
+            onPress={() => {
+              cancelAction();
+              requestLocationPermission();
+            }}
+            style={styles.button}
+            title={'Đồng ý'}
+          />
         </View>
       </View>
     </XModal>
@@ -44,10 +79,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // marginTop: 22,
     backgroundColor: 'rgba(83,82,82,0.9)',
   },
   popup: {
+    width: Layout.window.width - 32,
     backgroundColor: '#fff',
     borderRadius: 5,
   },

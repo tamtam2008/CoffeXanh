@@ -44,7 +44,7 @@ export default function CustomIcon({
           : Colors.tabIconDefault
       }
       {...other}
-      style={custom.style}
+      style={custom.style instanceof Array ? custom.style : [custom.style]}
     />
   ) : focused ? (
     <Image source={name.active} style={ImageStyle} />

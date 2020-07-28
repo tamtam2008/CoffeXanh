@@ -12,6 +12,7 @@ export default {
     notify: {
       otp_success: 'The OTP code has been sent to your phone number.',
     },
+    registerBtn: 'Create new account',
   },
   otp_screen: {
     screenName: 'Verify phone number',
@@ -21,6 +22,19 @@ export default {
     notify: {
       smsFail: 'SMS sending failed. Please try again later!',
     },
+  },
+  RegisterScreen: {
+    title: 'Sign Up',
+    message: 'Please fill out information to sign up',
+    username: 'Tài khoản',
+    password: 'Mật khẩu',
+    phonenumber: 'So dien thoai',
+    email: 'Email',
+    confirmPassword: 'Xac nhan mat khau',
+    successMessage: 'Sign up success',
+    successAlert:
+      'Ban se nhan duoc email thong bao da hoan tat dang ky khi thong tin cua ban duoc xac nhan',
+    gotoLogin: 'Dong ung dung',
   },
   AccountInfoUpdateScreen: {
     name: 'Name',

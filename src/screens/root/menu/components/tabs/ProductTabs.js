@@ -1,8 +1,7 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, Text, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import posed from 'react-native-pose';
 import XIconButton from '../../../../../components/XIconButton';
 import {
@@ -12,53 +11,43 @@ import {
 import Colors from '../../../../../constants/Colors';
 import { IconType } from '../../../../../constants/Icon';
 import Layout from '../../../../../constants/Layout';
-import DrinkTab from './DrinkTab/DrinkTab';
-import FoodTab from './FoodTab/FoodTab';
-import PopularTab from './PopularTab/PopularTab';
+import ProductTabsConfig from './ProductTabs.config';
 
-const Tab = createMaterialTopTabNavigator();
+const ProductTab = createMaterialTopTabNavigator();
 
 const tabBarOptions = {
   labelStyle: BaseFontStyles.menuOrBody2,
   activeTintColor: Colors.tintColor,
   inactiveTintColor: Colors.gray,
   indicatorStyle: { backgroundColor: Colors.tintColor },
-  style: { backgroundColor: '#fff' },
 };
 
-const ProductTabs = props => {
+const ProductTabs = ({ openSearch }) => {
   const { t } = useTranslation();
   return (
-    <Tab.Navigator
-      initialRouteName={'tab.drink'}
+    <ProductTab.Navigator
       lazy={true}
       tabBarOptions={tabBarOptions}
-      tabBar={p => <CustomTabBar {...p} openSearch={props.openSearch} />}>
-      <Tab.Screen
-        name={'tab.popular'}
-        component={PopularTab}
-        options={{ title: t('Menu.ProductTabs.popular') }}
-      />
-      <Tab.Screen
-        name={'tab.drink'}
-        component={DrinkTab}
-        options={{ title: t('Menu.ProductTabs.drink') }}
-      />
-      <Tab.Screen
-        name={'tab.food'}
-        component={FoodTab}
-        options={{ title: t('Menu.ProductTabs.food') }}
-      />
-    </Tab.Navigator>
+      tabBar={(p) => <CustomTabBar {...p} openSearch={openSearch} />}>
+      {ProductTabsConfig.map((Tab) => (
+        <ProductTab.Screen
+          name={Tab.name}
+          component={Tab.component}
+          options={{ title: t(Tab.title) }}
+        />
+      ))}
+    </ProductTab.Navigator>
   );
 };
 
-const tabWidth = (Layout.window.width - 36) / 3;
-const SpotLight = posed.View({
-  route0: { x: 0 },
-  route1: { x: tabWidth },
-  route2: { x: tabWidth * 2 },
-});
+const tabWidth =
+  (Layout.window.width - (18 + 6 + 10)) / ProductTabsConfig.length;
+const spotLightData = {};
+for (let i = 0; i < ProductTabsConfig.length; i++) {
+  spotLightData[`route${i}`] = { x: tabWidth * i };
+}
+const SpotLight = posed.View(spotLightData);
+
 function CustomTabBar(props) {
   const { state, navigation, descriptors } = props;
   const { index: activeRouteIndex } = state;
@@ -131,6 +120,7 @@ function CustomTabBar(props) {
           color={Colors.gray}
           icon={{ name: 'search', type: IconType.FONTAWESOME, size: 18 }}
           onPress={props.openSearch}
+          style={StyleSheet.flatten({ padding: 6, paddingRight: 10 })}
         />
       </View>
     </View>
@@ -142,6 +132,7 @@ export default ProductTabs;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
+    marginBottom: 5,
   },
   headerContainer: {
     flexDirection: 'row',

@@ -6,8 +6,14 @@ import React, {
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, Animated, StyleSheet, View } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import {
+  ActivityIndicator,
+  Animated,
+  StyleSheet,
+  SafeAreaView,
+  TextInput,
+  View,
+} from 'react-native';
 import Container from '../../../../../../components/layout/Container';
 import XModal from '../../../../../../components/layout/XModal';
 import XIconButton from '../../../../../../components/XIconButton';
@@ -18,37 +24,18 @@ import {
 import Colors from '../../../../../../constants/Colors';
 import { IconType } from '../../../../../../constants/Icon';
 import Layout from '../../../../../../constants/Layout';
-import CartBar from '../../cartBar/CartBar';
 import ProductList from '../../productList/ProductList';
 import SearchProductScreenReducer from './SearchProduct.reducer';
 import SearchProductScreenController from './SearchProduct.controller';
+import { HeaderBackButton } from '@react-navigation/stack';
 
-const cartHeight = 60;
-const SearchProductScreen = ({
-  visible,
-  onClose,
-  haveItems,
-  numberItems,
-  totalAmount,
-  refreshScreen,
-}) => {
+const SearchProductScreen = ({ visible, onClose }) => {
   const [state, dispatch] = useReducer(
     SearchProductScreenReducer.reducer,
     SearchProductScreenReducer.initState,
   );
   const [term, setTerm] = useState('');
   const { t } = useTranslation();
-  const translateY = useRef(new Animated.Value(cartHeight)).current;
-  useEffect(() => {
-    const animtion = async () => {
-      Animated.timing(translateY, {
-        toValue: 0,
-        duration: 500,
-        useNativeDriver: true, // <-- Add this
-      }).start();
-    };
-    haveItems && animtion();
-  }, [haveItems, translateY]);
 
   var buttonRightSize = 0;
   if (state.isRequesting) {
@@ -63,23 +50,14 @@ const SearchProductScreen = ({
   }, [onClose]);
   return (
     <XModal visible={visible} onClose={closeModal}>
-      <Container style={[styles.popupContainer]}>
+      <SafeAreaView style={[styles.popupContainer]}>
         <View style={[BaseStyles.boxWithShadow, styles.headerContainer]}>
-          <XIconButton
-            icon={{
-              name: 'arrow-back',
-              type: IconType.MATERIAL,
-              size: 24,
-            }}
-            color={Colors.gray}
-            style={[styles.buttonLeft]}
-            onPress={closeModal}
-          />
+          <HeaderBackButton onPress={closeModal} />
           <View
             style={[
               styles.titleContainer,
               StyleSheet.flatten({
-                width: Layout.window.width - buttonRightSize - 62,
+                width: Layout.window.width - buttonRightSize - 78,
               }),
             ]}>
             <TextInput
@@ -87,11 +65,11 @@ const SearchProductScreen = ({
               autoFocus={true}
               style={[BaseFontStyles.body1, styles.textInput]}
               value={term}
-              onChangeText={txt => {
+              onChangeText={(txt) => {
                 setTerm(txt);
                 SearchProductScreenController.search(term, dispatch);
               }}
-              onEndEditing={e => {}}
+              onEndEditing={(e) => {}}
             />
           </View>
           {state.isRequesting ? (
@@ -101,7 +79,10 @@ const SearchProductScreen = ({
             <XIconButton
               icon={{ name: 'times', type: IconType.FONTAWESOME, size: 20 }}
               color={Colors.gray}
-              style={[styles.buttonRight]}
+              style={[
+                styles.buttonRight,
+                { paddingHorizontal: 10, paddingVertical: 6 },
+              ]}
               onPress={() => setTerm('')}
             />
           ) : null}
@@ -109,30 +90,11 @@ const SearchProductScreen = ({
         <Container
           isLoading={state.isRequesting}
           isFail={state.isFail}
-          failMsg={t(state.failMsg)}>
+          failMsg={t(state.failMsg)}
+          scrollEnabled={false}>
           {term ? <ProductList productData={state.productData} /> : null}
         </Container>
-        {haveItems && (
-          <Animated.View
-            style={[
-              BaseStyles.boxWithShadow2,
-              styles.float,
-              {
-                transform: [
-                  {
-                    translateY: translateY,
-                  },
-                ],
-              },
-            ]}>
-            <CartBar
-              numberItems={numberItems}
-              totalAmount={totalAmount}
-              refreshScreen={refreshScreen}
-            />
-          </Animated.View>
-        )}
-      </Container>
+      </SafeAreaView>
     </XModal>
   );
 };
@@ -145,12 +107,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     flexDirection: 'row',
     alignItems: 'center',
+    paddingRight: 10,
   },
   titleContainer: {
     paddingRight: 10,
   },
   textInput: {
     width: '100%',
+    paddingHorizontal: 5,
   },
   buttonLeft: {
     paddingHorizontal: 16,

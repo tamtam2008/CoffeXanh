@@ -34,12 +34,12 @@ export default {
     {
       isAuthRequired: true,
       icon: {
-        name: 'history',
+        name: 'bell',
         type: IconType.FONTAWESOME,
         other: FontAwesomeType.SOLID,
         color: Colors.tintColor,
       },
-      title: 'SettingMenu.orderHistory',
+      title: 'SettingMenu.notifyReward',
       action: () => {
         navigation.navigate('orderHistory');
       },
@@ -47,14 +47,40 @@ export default {
     {
       isAuthRequired: true,
       icon: {
-        name: 'wallet',
+        name: 'chart-line',
         type: IconType.FONTAWESOME,
         other: FontAwesomeType.SOLID,
         color: Colors.tintColor,
       },
-      title: 'SettingMenu.payment',
+      title: 'SettingMenu.report',
       action: () => {
-        navigation.navigate('payment');
+        navigation.navigate('report');
+      },
+    },
+    {
+      isAuthRequired: false,
+      icon: {
+        name: 'users',
+        type: IconType.FONTAWESOME,
+        other: FontAwesomeType.SOLID,
+        color: Colors.tintColor,
+      },
+      title: 'SettingMenu.users',
+      action: () => {
+        navigation.navigate('help');
+      },
+    },
+    {
+      isAuthRequired: false,
+      icon: {
+        name: 'user',
+        type: IconType.FONTAWESOME,
+        other: FontAwesomeType.SOLID,
+        color: Colors.tintColor,
+      },
+      title: 'SettingMenu.createUser',
+      action: () => {
+        navigation.navigate('createUser');
       },
     },
     {

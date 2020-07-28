@@ -8,47 +8,27 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: Layout.window.width * 0.37,
+    height: Layout.window.height * 0.4,
     resizeMode: 'cover',
   },
-  bodyContainer: {
+  bodyWrapper: {
     flex: 1,
-    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  bodyContainer: {
     paddingVertical: 24,
     paddingHorizontal: normalize(16),
-  },
-  phoneNumberContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    alignItems: 'stretch',
-  },
-  mTop: {
-    marginTop: 16,
-  },
-  btnContainer: {
-    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    alignContent: 'center',
+    width: Layout.window.width,
   },
   loginBtn: {
-    width: normalize(216),
+    width: normalize(120),
+    borderRadius: 10,
   },
-  fbBtn: {
-    marginTop: 16,
-    width: normalize(126),
-  },
-  ignoreBtn: {
-    paddingTop: 8,
-    color: Colors.gray,
-  },
-  phoneErrorMsg: {
+  errorMsg: {
     color: Colors.red,
     textAlign: 'center',
-  },
-  noPhonePadding: {
-    justifyContent: 'space-between',
   },
 });
 

@@ -6,11 +6,12 @@ const initState = {
   isLogin: false,
   userInfo: {
     avatar: '',
-    name: '',
+    name: 'Demo',
     sex: '11',
     dob: 642211200000,
-    rank: 'NC',
-    point: 0,
+    role: 'staff',
+    phone: '0000000000',
+    email: 'demo@demo.com',
   },
 };
 const authReducer = (state = initState, action) => {
@@ -34,11 +35,11 @@ const authReducer = (state = initState, action) => {
         isLogin: false,
       };
     }
-    case actions.LOGOUT_SUCCESS: {
+    case actions.u: {
       return {
+        ...initState,
         isNew: true,
         isLogin: false,
-        ...action.payload,
       };
     }
     case actions.REQUEST_OTP_SUCCESS: {
@@ -52,6 +53,9 @@ const authReducer = (state = initState, action) => {
         ...state,
         userInfo: { ...state.userInfo, ...action.payload },
       };
+    }
+    case actions.LOGOUT_SUCCESS: {
+      return initState;
     }
     default:
       return state;

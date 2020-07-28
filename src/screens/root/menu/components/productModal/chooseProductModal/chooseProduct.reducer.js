@@ -18,12 +18,18 @@ export default {
           isRequesting: false,
           isFail: false,
           data: {
-            photo: payload.listPhoto.map(val => ({
-              image: payload.pathPhoto + '/' + val.photo,
-              thumb: payload.pathPhoto + '/' + val.thumb,
-            })),
+            photo: [
+              {
+                image: `${payload.pathPhoto}/${payload.detailProduct.photo}`,
+                thumb: `${payload.pathPhoto}/${payload.detailProduct.thumb}`,
+              },
+              ...payload.listPhoto.map(val => ({
+                image: `${payload.pathPhoto}/${val.photo}`,
+                thumb: `${payload.pathPhoto}/${val.thumb}`,
+              })),
+            ],
             listSize: payload.listSize,
-            detailProduct: payload.detailProduct[0] || {},
+            detailProduct: payload.detailProduct,
           },
         };
       case Actions.GET_DATA_FAIL:
