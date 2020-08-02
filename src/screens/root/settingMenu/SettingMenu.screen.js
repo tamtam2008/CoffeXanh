@@ -11,6 +11,10 @@ import SessionUtils from '../../../session/SessionUtils';
 
 const SettingMenuScreen = (props) => {
   const { t } = useTranslation();
+  console.log(
+    'SessionUtils.session()?.isLogin ',
+    SessionUtils.session()?.isLogin,
+  );
   return (
     <Container
       isRequesting={props.isRequesting}

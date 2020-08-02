@@ -56,4 +56,9 @@ export default StyleSheet.create({
   editButton: {
     alignItems: 'flex-end',
   },
+  changePasswordContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
 });
