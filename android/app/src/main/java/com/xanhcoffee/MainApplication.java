@@ -7,7 +7,7 @@ import com.facebook.react.ReactApplication;
 import com.bolan9999.SpringScrollViewPackage;
 import com.bolan9999.SpringScrollViewPackage;
 // import com.airbnb.android.react.maps.MapsPackage;
-import com.RNTextInputMask.RNTextInputMaskPackage;
+// import com.RNTextInputMask.RNTextInputMaskPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.swmansion.rnscreens.RNScreensPackage;
@@ -24,6 +24,7 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.bolan9999.SpringScrollViewPackage;
+import com.facebook.react.BuildConfig;
 
 public class MainApplication extends Application implements ReactApplication {
 

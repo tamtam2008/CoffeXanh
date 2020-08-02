@@ -179,16 +179,18 @@ const AccountInfoScreen = props => {
 };
 
 const changeAvatarAction = () => {
+  // eslint-disable-next-line no-alert
   alert('change avatar!');
 };
-const mapStateToProps = state => ({
-  userInfo: state.auth.userInfo,
-  avatar: { url: state.auth.userInfo.avatar },
-});
+
+const mapStateToProps = (state) => {
+  console.log('state ', state);
+  return {
+    userInfo: state.auth.userInfo,
+    avatar: { url: state.auth.userInfo.avatar },
+  };
+};
 
 const mapDispatchToProps = {};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AccountInfoScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountInfoScreen);

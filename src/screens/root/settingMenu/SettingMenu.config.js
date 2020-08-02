@@ -6,7 +6,7 @@ const navigation = useRootNavigation();
 export default {
   menuList: [
     {
-      isAuthRequired: true,
+      isAuthRequired: false,
       icon: {
         name: 'user-alt',
         type: IconType.FONTAWESOME,

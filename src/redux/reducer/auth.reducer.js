@@ -3,7 +3,7 @@ import SessionUtils from '../../session/SessionUtils';
 
 const initState = {
   isNew: false,
-  isLogin: false,
+  isLogin: true,
   userInfo: {
     avatar: '',
     name: 'Demo',
