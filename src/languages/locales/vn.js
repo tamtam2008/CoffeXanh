@@ -21,6 +21,11 @@ export default {
       'Bán sẽ nhận được email thông báo đã hoàn tât đăng ký khi thông tin của bạn được xác nhận',
     gotoLogin: 'Về trang đăng nhập',
   },
+  ChangePasswordScreen: {
+    title: 'Đổi mật khẩu',
+    message: 'Vui lòng nhập thông tin dưới đây',
+    changePassword: 'Đổi mật khẩu',
+  },
   ResetPasswordScreen: {
     title: 'Nhập thông tin để khôi phục mật khẩu của bạn',
     resetPwdBtn: 'Khôi phục mật khẩu',
@@ -88,6 +93,7 @@ export default {
     phone: 'Số điện thoại',
     email: 'Email',
     empty: 'Chưa có',
+    changePassword: 'Đổi mật khẩu',
   },
   SettingsScreen: {
     addressBook: 'Địa chỉ đã lưu',
@@ -138,6 +144,7 @@ export default {
       settings: 'Cài đặt',
       chooseLanguageScreen: 'Chọn ngôn ngữ',
       chooseReceiveAddress: 'Giao đến',
+      changePassword: 'Đổi mật khẩu',
     },
   },
   paymentType: {

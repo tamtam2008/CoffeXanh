@@ -36,6 +36,11 @@ export default {
       'Ban se nhan duoc email thong bao da hoan tat dang ky khi thong tin cua ban duoc xac nhan',
     gotoLogin: 'Dong ung dung',
   },
+  ChangePasswordScreen: {
+    title: 'Đổi mật khẩu',
+    message: 'Vui lòng nhập thông tin dưới đây',
+    changePassword: 'Đổi mật khẩu',
+  },
   AccountInfoUpdateScreen: {
     name: 'Name',
     dob: 'Date of birth',
@@ -84,6 +89,7 @@ export default {
     link: 'Link',
     linked: 'Linked',
     notLinked: 'Not linked',
+    changePassword: 'Change password',
   },
   SettingAppScreen: {
     addressBook: 'Address book',
@@ -120,6 +126,7 @@ export default {
       cart: 'Cart',
       paymentType: 'Choose payment type',
       blogDetail: 'Blog',
+      changePassword: 'Change password',
     },
     paymentType: {
       CS: 'Cash',

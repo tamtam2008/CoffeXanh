@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import LazyImage from '../../../../components/LazyImage';
 import CustomIcon from '../../../../components/CustomIcon';
 import XIconButton from '../../../../components/XIconButton';
+import XLabelButton from '../../../../components/XLabelButton';
+import Colors from '../../../../constants/Colors';
 import { BaseFontStyles, BaseStyles } from '../../../../constants/BaseStyles';
 import { FontAwesomeType, IconType } from '../../../../constants/Icon';
 import { normalize } from '../../../../constants/Layout';
@@ -97,9 +99,7 @@ const AccountInfoScreen = props => {
                       props.navigation.navigate('accountInfoUpdate')
                     }
                     style={styles.editButton}
-                    iconStyle={{
-                      padding: 5,
-                    }}
+                    iconStyle={{ padding: 5 }}
                   />
                 </Col>
               </Row>
@@ -173,6 +173,18 @@ const AccountInfoScreen = props => {
             </Col>
           </Row>
         </Grid>
+        <View
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={styles.changePasswordContainer}>
+          <XLabelButton
+            style={[BaseStyles.mt_10]}
+            title={t('AccountInfoScreen.changePassword')}
+            onPress={() => {
+              props.navigation.navigate('changePassword');
+            }}
+            color={Colors.tintColor}
+          />
+        </View>
       </View>
     </ScrollView>
   );

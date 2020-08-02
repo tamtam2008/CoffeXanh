@@ -2,13 +2,13 @@ import { FontAwesomeType, IconType } from '../constants/Icon';
 import AccountInfoScreen from './root/account/accountInfo/AccountInfo.screen';
 import AccountInfoUpdateScreen from './root/account/accountInfoUpdate/AccountInfoUpdate.screen';
 import MenuScreen from './root/menu/Menu.screen';
-import NotiScreen from './root/noti/Noti.screen';
 import HelpScreen from './root/help/Help.screen';
 import ChooseLanguageScreen from './root/settings/ChooseLanguage.screen';
 import SettingsScreen from './root/settings/Settings.screen';
 import StoreScreens from './root/store/StoreScreen';
 import OrderScreen from './root/order/Order.screen';
 import SettingMenuScreen from './root/settingMenu/SettingMenu.screen';
+import ChangePasswordScreen from './root/changePassword/ChangePassword.screen'
 
 export const routes = {
   bottomTabs: [
@@ -59,6 +59,11 @@ export const routes = {
       name: 'accountInfo',
       title: 'routes.screens.accountInfo',
       component: AccountInfoScreen,
+    },
+    {
+      name: 'changePassword',
+      title: 'routes.screens.changePassword',
+      component: ChangePasswordScreen,
     },
     {
       name: 'accountInfoUpdate',
