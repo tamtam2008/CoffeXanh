@@ -9,7 +9,8 @@ import SettingsScreen from './root/settings/Settings.screen';
 import StoreScreens from './root/store/StoreScreen';
 import OrderScreen from './root/order/Order.screen';
 import SettingMenuScreen from './root/settingMenu/SettingMenu.screen';
-
+import OrderHistoryScreen from './root/orderHistory/OrderHistory.screen';
+import OrderDetailScreen from './root/orderDetail/OrderDetail.screen';
 export const routes = {
   bottomTabs: [
     {
@@ -80,5 +81,15 @@ export const routes = {
       title: 'routes.screens.chooseLanguageScreen',
       component: ChooseLanguageScreen,
     },
+    {
+      name:'orderDetail',
+      title: 'Đơn hàng đang xử lý',
+      component: OrderDetailScreen
+    },
+    {
+      name:'orderHistory',
+      title: 'Lịch sử đơn hàng',
+      component: OrderHistoryScreen
+    }
   ],
 };

@@ -28,6 +28,8 @@ target 'XanhCoffee' do
   config = use_native_modules!
   use_react_native!(:path => config["../node_modules/react-native"])
 
+  pod 'react-native-text-input-mask', :path => '../node_modules/react-native-text-input-mask'
+
   target 'XanhCoffeeTests' do
     inherit! :complete
     # Pods for testing

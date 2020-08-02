@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.RNTextInputMask.RNTextInputMaskPackage;
 import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 import com.bolan9999.SpringScrollViewPackage;
 import com.bolan9999.SpringScrollViewPackage;

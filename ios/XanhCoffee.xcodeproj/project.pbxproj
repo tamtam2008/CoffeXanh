@@ -33,6 +33,22 @@
 		E7599AE671F546459BA2A18E /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E9E3BD1169947ADB4D0F36B /* Roboto-Regular.ttf */; };
 		FAEEADE1B68D41D6B35F4B99 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13F66E59C1854B5FA46450C4 /* Roboto-BlackItalic.ttf */; };
 		FBDE40306A6BB6076030081D /* libPods-XanhCoffee-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5514A0070E48C831A139F8BA /* libPods-XanhCoffee-tvOSTests.a */; };
+		84A40CA0D9F94F9A9CB07AF2 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 20FCB5909744478CA1F16AFE /* 1.png */; };
+		84B6E54382EC4E70A543110C /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A099B8C208E4221B34D0DB1 /* 2.png */; };
+		E9D1E78493C24615BBE7A7BF /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = BBB69656B56244F89AC6BA33 /* 3.png */; };
+		42647332522644DDAB181B2F /* 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 5316E6195AD24A03B9E90360 /* 4.png */; };
+		121B49EF21AF453CB24A5455 /* 5.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ECA9BDCD6B7407CA7551354 /* 5.png */; };
+		9ED62764F6104FC1A85A0EAD /* 6.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB0230F409943AE849F13BC /* 6.png */; };
+		239DFF4F70BF4461A7CF705D /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 151F1C9E0DC644239CE56583 /* background.png */; };
+		25B1A4B11E82498BA3E07493 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184C9D4809BE486CA195DB3F /* background@2x.png */; };
+		69880B550C474800BEEF93C9 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DE64D8544DB746F6B0D5EC6F /* icon.png */; };
+		687B9FA5C9AD431883EF6CDB /* point.png in Resources */ = {isa = PBXBuildFile; fileRef = 267DF638DC6442E3967DD07B /* point.png */; };
+		26F0612A9A5F4EB29D2C6191 /* point2.png in Resources */ = {isa = PBXBuildFile; fileRef = 96DF0BCB76374E88906DE3BF /* point2.png */; };
+		E0D938F8998A4F319361A189 /* splash-xanh-cf-app.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 820107DC423E4418966D4B28 /* splash-xanh-cf-app.jpg */; };
+		E4C6920C9DA040F4B3ECB20A /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 16541FBDCF0041408CF34BE2 /* splash.png */; };
+		31511C39DAD54229B594FBCD /* tabIconActive.png in Resources */ = {isa = PBXBuildFile; fileRef = FC98A4ED1AFE4F4798E5DCCF /* tabIconActive.png */; };
+		A04303448172409D8169E5A2 /* tabIconDefault.png in Resources */ = {isa = PBXBuildFile; fileRef = AB40998012324187BE44DE79 /* tabIconDefault.png */; };
+		CA23163972B34C30BCC3B1BD /* xanhcoffee-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 39DAB68C51864248A144F1A3 /* xanhcoffee-logo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +126,22 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F9E514BA2B15426881410375 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		20FCB5909744478CA1F16AFE /* 1.png */ = {isa = PBXFileReference; name = "1.png"; path = "../assets/images/1.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5A099B8C208E4221B34D0DB1 /* 2.png */ = {isa = PBXFileReference; name = "2.png"; path = "../assets/images/2.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BBB69656B56244F89AC6BA33 /* 3.png */ = {isa = PBXFileReference; name = "3.png"; path = "../assets/images/3.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5316E6195AD24A03B9E90360 /* 4.png */ = {isa = PBXFileReference; name = "4.png"; path = "../assets/images/4.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9ECA9BDCD6B7407CA7551354 /* 5.png */ = {isa = PBXFileReference; name = "5.png"; path = "../assets/images/5.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		ADB0230F409943AE849F13BC /* 6.png */ = {isa = PBXFileReference; name = "6.png"; path = "../assets/images/6.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		151F1C9E0DC644239CE56583 /* background.png */ = {isa = PBXFileReference; name = "background.png"; path = "../assets/images/background.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		184C9D4809BE486CA195DB3F /* background@2x.png */ = {isa = PBXFileReference; name = "background@2x.png"; path = "../assets/images/background@2x.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DE64D8544DB746F6B0D5EC6F /* icon.png */ = {isa = PBXFileReference; name = "icon.png"; path = "../assets/images/maps/icon.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		267DF638DC6442E3967DD07B /* point.png */ = {isa = PBXFileReference; name = "point.png"; path = "../assets/images/point.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		96DF0BCB76374E88906DE3BF /* point2.png */ = {isa = PBXFileReference; name = "point2.png"; path = "../assets/images/point2.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		820107DC423E4418966D4B28 /* splash-xanh-cf-app.jpg */ = {isa = PBXFileReference; name = "splash-xanh-cf-app.jpg"; path = "../assets/images/splash-xanh-cf-app.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		16541FBDCF0041408CF34BE2 /* splash.png */ = {isa = PBXFileReference; name = "splash.png"; path = "../assets/images/splash.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FC98A4ED1AFE4F4798E5DCCF /* tabIconActive.png */ = {isa = PBXFileReference; name = "tabIconActive.png"; path = "../assets/images/tabIconActive.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AB40998012324187BE44DE79 /* tabIconDefault.png */ = {isa = PBXFileReference; name = "tabIconDefault.png"; path = "../assets/images/tabIconDefault.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		39DAB68C51864248A144F1A3 /* xanhcoffee-logo.png */ = {isa = PBXFileReference; name = "xanhcoffee-logo.png"; path = "../assets/images/xanhcoffee-logo.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +257,22 @@
 				4E9E3BD1169947ADB4D0F36B /* Roboto-Regular.ttf */,
 				1230F4CDFBE44DE5B10BB2FD /* Roboto-Thin.ttf */,
 				88A4C186E30D47D098293CEB /* Roboto-ThinItalic.ttf */,
+				20FCB5909744478CA1F16AFE /* 1.png */,
+				5A099B8C208E4221B34D0DB1 /* 2.png */,
+				BBB69656B56244F89AC6BA33 /* 3.png */,
+				5316E6195AD24A03B9E90360 /* 4.png */,
+				9ECA9BDCD6B7407CA7551354 /* 5.png */,
+				ADB0230F409943AE849F13BC /* 6.png */,
+				151F1C9E0DC644239CE56583 /* background.png */,
+				184C9D4809BE486CA195DB3F /* background@2x.png */,
+				DE64D8544DB746F6B0D5EC6F /* icon.png */,
+				267DF638DC6442E3967DD07B /* point.png */,
+				96DF0BCB76374E88906DE3BF /* point2.png */,
+				820107DC423E4418966D4B28 /* splash-xanh-cf-app.jpg */,
+				16541FBDCF0041408CF34BE2 /* splash.png */,
+				FC98A4ED1AFE4F4798E5DCCF /* tabIconActive.png */,
+				AB40998012324187BE44DE79 /* tabIconDefault.png */,
+				39DAB68C51864248A144F1A3 /* xanhcoffee-logo.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -436,6 +484,22 @@
 				E7599AE671F546459BA2A18E /* Roboto-Regular.ttf in Resources */,
 				E06E7B86398C4D0AAD55860E /* Roboto-Thin.ttf in Resources */,
 				04FB3A495DDD44BABED89E77 /* Roboto-ThinItalic.ttf in Resources */,
+				84A40CA0D9F94F9A9CB07AF2 /* 1.png in Resources */,
+				84B6E54382EC4E70A543110C /* 2.png in Resources */,
+				E9D1E78493C24615BBE7A7BF /* 3.png in Resources */,
+				42647332522644DDAB181B2F /* 4.png in Resources */,
+				121B49EF21AF453CB24A5455 /* 5.png in Resources */,
+				9ED62764F6104FC1A85A0EAD /* 6.png in Resources */,
+				239DFF4F70BF4461A7CF705D /* background.png in Resources */,
+				25B1A4B11E82498BA3E07493 /* background@2x.png in Resources */,
+				69880B550C474800BEEF93C9 /* icon.png in Resources */,
+				687B9FA5C9AD431883EF6CDB /* point.png in Resources */,
+				26F0612A9A5F4EB29D2C6191 /* point2.png in Resources */,
+				E0D938F8998A4F319361A189 /* splash-xanh-cf-app.jpg in Resources */,
+				E4C6920C9DA040F4B3ECB20A /* splash.png in Resources */,
+				31511C39DAD54229B594FBCD /* tabIconActive.png in Resources */,
+				A04303448172409D8169E5A2 /* tabIconDefault.png in Resources */,
+				CA23163972B34C30BCC3B1BD /* xanhcoffee-logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
